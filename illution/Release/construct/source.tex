@@ -1,0 +1,22 @@
+\documentclass{report}
+\usepackage{tikz}
+\usepackage{fancybox}
+\usepackage[pdftex,dvips,papersize={279.4mm,215.9mm},vmargin={0cm,0cm},hmargin={0cm,0cm}]{geometry}
+\usepackage[T1]{fontenc}
+\pdfpagewidth 279.4mm
+\pdfpageheight 215.9mm
+\pagestyle{empty}
+\begin{document}
+
+\noindent
+\fbox{
+\begin{minipage}[t][205.9mm]{269.4mm}
+\begin{tikzpicture}
+\filldraw[line width=.1pt,color=black]
+ (0, 0) -- (0.0, 0.01) -- (0.01, 0.01) -- cycle;
+\draw[xstep=0.5, ystep=0.5, color=gray]
+ (0,-10) grid (27, 0);
+\end{tikzpicture}
+\end{minipage}
+}
+\end{document}

@@ -1,0 +1,104 @@
+(items in circulation) / (currency in circulation) = base price
+
+population attributes:
+    POPL - Population
+	population size
+	number of stations
+    
+    GROW - Growth
+	how fast new people are born
+	
+    PEAC - Peaceful
+	quantity and distribution of peaceful NPCs
+	
+    AGGR - Aggressive
+	quantity and distribution of aggressive NPCs
+	
+    HSTL - Hostility
+	how hostile NPCs are to non-similar NPCs
+	
+    ORDR - Order
+	for a given quantity of peaceful NPCs, determines how many will be police
+	for a given quantity of aggressive NPCs, determines how many will be pirates
+	
+    WLTH - Wealth
+	how much currency NPCs will have
+	
+    PRPS - Prosperity
+	how evenly the currency is distributed
+	
+    TRDE - Trade
+	how much will NPCs trade with other areas
+	
+    ROAM - Roam
+	how much will NPCs wander outside their area
+	
+	
+Area Attributes:
+    Determines quantity of similar typed items in station inventories
+    and how often these items spawn naturally
+    
+    Natural Resources:
+    AGRI - Agriculture
+    MINR - Mineral
+    ENRG - Energy, Fuel
+    TECH - Technology - Does not naturally spawn
+
+Player attributes:
+    Area -
+    Employed By - can be self, or a corporation
+    Ship -
+    
+    
+Job types (AI roles):
+    default, idle
+	try to work
+	if can't work (no money, resources to do job) then find a job
+	if job can't be found, switch roles
+	repeat
+	
+    trader job	    
+	    find a ship
+		IF a ship is not available THEN
+		    IF have enough to buy a ship THEN
+			buy a ship
+		    ELSE
+			fail, try another job
+		    END
+		END
+	    find a profitable trade route
+		buy as much as funds will allow
+		sell
+		repeat
+	    
+	    if funds allow it, buy a bigger ship
+	    if UNEMPLOYED and
+		if wealth rises to high enough percentile among other traders, start a company
+	
+	    if EMPLOYED and
+		wealth rises to high enough percentile... retire?
+
+    theif job
+	    
+	    find a ship
+		IF a ship is not available THEN
+		    find an empty (or new) ship and steal it
+		END
+	    
+    	    
+    ceo job
+	    X% of funds go to savings
+	    Y% of funds go to payroll
+	    Z% of funds go to investment
+	    
+	    
+Corporation Attributes:
+    Owner - which player controls the corp
+	    for NPCs, their attributes affect how the company behaves
+
+
+Craft types:
+    Station - 
+	docking ports - unlimited
+	speed - immobile, orbits planets
+	    

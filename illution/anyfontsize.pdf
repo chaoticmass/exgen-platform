@@ -1,0 +1,62 @@
+<DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title>macros/latex/contrib/anyfontsize/anyfontsize.pdf</title>
+        <meta HTTP-EQUIV="REFRESH" content="5; url=../macros/latex/contrib/anyfontsize/anyfontsize.pdf" />
+    </head>
+    <body>
+ 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-10729744-20']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<div style="text-align: center;">
+
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-7407785364487583";
+/* ctan.unixbrain.com - banner */
+google_ad_slot = "6181170683";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+
+</div>       
+
+        <div style="width: 100%; font-size: 16pt; text-align: center;">
+            <br />
+            Your file, macros/latex/contrib/anyfontsize/anyfontsize.pdf, should begin downloading shortly, if not, please click <a href="macros/latex/contrib/anyfontsize/anyfontsize.pdf">here</a>
+            <br />
+        </div>
+        <div style="text-align: center; width: 100%; height: auto; border: 1px solid #ccc;">
+            anyfontsize.sty is a LaTeX2e package that lets the user select any 
+font size (via e.g. \fontsize{...}{...}\selectfont), even those 
+sizes that are not listed in the .fd file. If such a size is requested, 
+LaTeX will search the nearest listed size, and anyfontsize will scale 
+that font to the requested size. For a similar functionality that 
+works only for the CM fonts, try the type1cm.sty package, or, even 
+better, use the new Latin Modern (LM) fonts, which are available at 
+any size.
+
+License type: lppl
+
+        </div>
+        <div style="width: 100%; text-align: 50%;">
+            <a href="http://ctan.unixbrain.com/">Previous Page</a>
+        </div>
+
+      </body>
+</html>

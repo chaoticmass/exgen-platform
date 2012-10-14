@@ -1,0 +1,14 @@
+cd /root/projects/c/
+cd illution/
+cp src/globals.c illution.c
+cat src/main.c >> illution.c
+cat src/queue.c >> illution.c
+cat src/gui.c >> illution.c
+cat src/model.c >> illution.c
+cat src/render.c >> illution.c
+cat src/ode.c >> illution.c
+cat src/lua.c >> illution.c
+cat src/gif.c >> illution.c
+
+#!/bin/bash
+gcc -s -w -O3 -shared -nostartfiles -fPIC -g -o /usr/local/share/exgen/modules/illution illution.c `allegro-config --libs release --static` lib/libode.a lib/libjpgal.a `lua-config --include` -Iinclude/ -Iinclude/ode/ 

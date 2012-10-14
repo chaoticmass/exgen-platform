@@ -1,0 +1,7 @@
+#!/bin/sh
+
+build
+cd /usr/local/share/exgen/modules/illution_support/
+exgen system/init.lua
+#exgen accounts/accounts.lua
+#exgen glowerk/glowerk.lua

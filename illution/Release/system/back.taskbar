@@ -1,0 +1,117 @@
+echo("BONZAI!\n");
+font1 = surface:new();
+font1.visible = 0;
+font1.bmp = "fonts/black_micro_computer.bmp";
+
+task = surface:new();
+task.height = 32;
+task.width = screen_width();
+task.left = 0;
+task.top = screen_height() - task.height;
+task.forecolor = getvar("colors", "widget-forecolor");
+task.backcolor = getvar("colors", "widget-backcolor");
+task.alpha = 100;
+
+task.on_draw = function()
+    task.gradient(task.forecolor, task.backcolor);
+--[[    if (task.alpha > 0) then
+	task.alpha = task.alpha - 1;
+    end]]
+end
+
+menu = button:new();
+menu.parent = task;
+menu.top = 3;
+menu.left = 3;
+menu.width = 64;
+menu.font = font1;
+menu.caption = "illution";
+menu.height = task.height - 6;
+
+menu.z = 1;
+
+button1 = button:new();
+button1.parent = task;
+button1.top = 3;
+button1.left = menu.left + menu.width + 3;
+button1.height = task.height - 6;
+button1.width = 64;
+button1.z = 1;
+button1.visible = 1;
+
+--[[
+win = window:new();
+win.font = font1;
+win.caption = "illution";
+win.top = 0;
+win.left = 0;
+win.width = screen_width() * .33;
+win.height = screen_height() * .66;
+win.z = 9999;
+win.close.visible = 0;
+win.alpha = 100;
+win.top = screen_height() - win.height - task.height;
+win.visible = 0;
+
+
+
+ibox = listbox:new();
+ibox.parent = win;
+ibox.top = win.margin_top;
+ibox.left = win.margin_left;
+ibox.width = win.inside_width - 24;
+ibox.height = win.inside_height;
+ibox.font = font1;
+ibox.backcolor = makecol(255, 255, 255);
+ibox.transparent = 0;
+ibox.z = 9999;
+ibox.visible = 1;
+]]
+--[[db = client_interface:new();
+db.hostname = getvar("database", "hostname");
+db.db_query = "select * from meta->menu get all";]]
+--db_source = db.db_post();
+--include_string(db_source);
+
+--[[
+for key, value in pairs(results.records) do
+--[[    if (type(ibox.images[value.id]) ~= "table") then
+	ibox.images[value.id] = surface:new();
+	ibox.images[value.id].noevents = 1;
+	ibox.images[value.id].visible = 0;
+    end
+    
+    download_file(db.hostname,"/cgi/wizard/imgsize.php", "id=".. value.id .."&output=gif&size=32", "system/tmp/".. value.id ..".gif");
+    ibox.images[value.id].gif = "system/tmp/".. value.id ..".gif";
+    ibox.add_icon(tostring(value.title), ibox.images[value.id], "", tostring(value.id));
+    
+    ibox.add_icon(tostring(value.title), nil, "", tostring(value.form_id));
+end
+]]
+--ibox.arrange_icons();
+
+
+
+menu.on_click = function () 
+--    run_script_thread_reuse("apps/ode.lua");
+--    run_script_thread_reuse("apps/db_client.lua");
+--[[    if win.visible == 0 then
+	win.visible = 1;
+    else 
+	win.visible = 0;
+    end
+    
+    ibox.on_redraw();]]
+end
+--[[
+ibox.on_icon_select = function (index, icon)
+    win.visible = 0;
+    echo (ibox.selected .. "\n");
+    ibox.selected = -1;
+end
+]]
+button1.on_click = function ()
+    exit();
+end
+
+render_loop(task.surface);

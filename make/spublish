@@ -1,0 +1,11 @@
+cd /root/projects/c/exgen/
+mkdir /mnt/exgen/exgen/0.29A/
+mkdir /mnt/exgen/exgen/0.29A/linux_x86/
+mkdir /mnt/exgen/exgen/0.29A/linux_x86/src/
+mkdir /mnt/exgen/exgen/0.29A/linux_x86/support/
+echo 0.29A > /mnt/exgen/exgen/latest
+cp -u bin/exgen /mnt/exgen/exgen/0.29A/linux_x86/
+cp -u exgen.c /mnt/exgen/exgen/0.29A/linux_x86/src/
+cp --update --verbose -R Release//* /mnt/exgen/exgen/0.29A/linux_x86/support
+cd Release/
+find > /mnt/exgen/exgen/0.29A/linux_x86/support/manifest

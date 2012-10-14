@@ -1,0 +1,8 @@
+cd /root/projects/c/
+cd video/
+cp src/globals.c video.c
+cat src/main.c >> video.c
+cat src/lua.c >> video.c
+
+#!/bin/bash
+gcc -s -w -O3 -shared -nostartfiles -fPIC -g -o /usr/local/share/exgen/modules/video video.c -lavutil -lavformat -lavcodec -lswscale -lz -lbz2 -lavutil -lm  `lua-config --include` 

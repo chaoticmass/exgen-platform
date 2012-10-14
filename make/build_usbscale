@@ -1,0 +1,8 @@
+cd /root/projects/c/
+cd usbscale/
+cp src/globals.c usbscale.c
+cat src/main.c >> usbscale.c
+cat src/lua.c >> usbscale.c
+
+#!/bin/bash
+gcc -s -w -O3 -shared -nostartfiles -fPIC -g -o /usr/local/share/exgen/modules/usbscale usbscale.c  `lua-config --include` -Iinclude/ 

@@ -1,0 +1,9 @@
+
+
+    You've got render_loop right? Make a way to
+    
+	a) bail from the render_loop
+	
+	and/or
+	
+	b) remove surfaces from the render_loop

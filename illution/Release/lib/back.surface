@@ -1,0 +1,2278 @@
+
+surface = {};
+function surface:new()
+    local object = {};
+    local daters = {};
+
+    daters.surface = create_surface(16, 16);    
+    surface_clear(daters.surface);
+    daters.on_draw = function () end;
+    daters.on_mouse_down = function () end;
+    daters.on_mouse_up = function () end;
+    daters.on_mouse_click = function () end;
+    daters.on_keypress = function () end;
+    set_surface_lua(daters.surface);
+    
+    daters.margin_left = 0;
+    daters.margin_right = 0;
+    daters.margin_top = 0;
+    daters.margin_bottom = 0;
+    
+    setmetatable(object, {
+	-- GET DATA
+	__index = function (table, key) 
+	    if key == "width" then
+		return get_surface_width(daters.surface);
+	    elseif key == "height" then
+		return get_surface_height(daters.surface);
+	    elseif key == "x" then
+		return get_surface_x(daters.surface);
+	    elseif key == "y" then
+		return get_surface_y(daters.surface);
+	    elseif key == "x_offset" then
+		return get_surface_x_offset(daters.surface);
+	    elseif key == "y_offset" then
+		return get_surface_y_offset(daters.surface);
+
+	    elseif key == "position_absolute" then
+		return get_surface_position_absolute(daters.surface);
+	    elseif key == "top" then
+		return get_surface_y(daters.surface);
+	    elseif key == "left" then
+		return get_surface_x(daters.surface);
+	    elseif key == "z" then
+		return get_surface_z(daters.surface);
+	    elseif key == "parent" then
+		return daters.parent;
+		--return get_surface_parent(daters.surface);
+	    elseif key == "font" then
+		return  daters.font;
+	    elseif key == "backcolor" then
+		return get_surface_backcolor(daters.surface);
+	    elseif key == "forecolor" then
+		return get_surface_forecolor(daters.surface);
+	    elseif key == "transcolor" then
+		return get_surface_transcolor(daters.surface);
+	    elseif key == "alpha" then
+		return get_surface_alpha(daters.surface);
+	    elseif key == "visible" then
+		return get_surface_visible(daters.surface);
+	    elseif key == "rotation" then
+		return get_surface_rotation(daters.surface);
+	    elseif key == "on_draw" then
+		return daters.on_draw;
+	    elseif key == "noevents" then
+		return get_surface_noevents(daters.surface);		
+	    elseif key == "tab_index" then
+		return get_surface_tab_index(daters.surface);		
+	    elseif key == "dirty" then
+		return get_surface_dirty(daters.surface);		
+	    else 
+		return daters[key];
+	    end
+	end,
+	-- SET DATA
+	__newindex = function (table, key, value)
+	    if key == "width" then
+		set_surface_dirty(daters.surface);
+		if (type(value) == "number") then
+		    if value <= 1 then
+			if type(object.parent.width) == "number" then
+		    	    value = object.parent.width * value;
+			    --echo("working with percents bitch".. value .."\n");
+			end
+		    end
+		end
+		set_surface_width(daters.surface, value);
+		daters.on_draw();
+	    elseif key == "height" then
+		set_surface_dirty(daters.surface);
+		if (type(value) == "number") then
+		    if value <= 1 then
+			if type(object.parent.height) == "number" then
+			    value = object.parent.height * value;
+			    echo("working with percents bitch".. value .."\n");
+			end
+		    end
+		else
+		    echo(value);
+		    echo("\n");
+		end
+		set_surface_height(daters.surface, value);
+		daters.on_draw();
+	    elseif key == "x" then
+	    	set_surface_dirty(daters.surface);
+		set_surface_x(daters.surface, value);
+	    elseif key == "y" then
+	    	set_surface_dirty(daters.surface);
+		set_surface_y(daters.surface, value);
+	    elseif key == "x_offset" then
+	    	--set_surface_dirty(daters.surface);
+		set_surface_x_offset(daters.surface, value);
+	    elseif key == "y_offset" then
+	    	--set_surface_dirty(daters.surface);
+		set_surface_y_offset(daters.surface, value);
+	    elseif key == "position_absolute" then
+	    	--set_surface_dirty(daters.surface);
+		set_surface_position_absolute(daters.surface, value);
+
+	    elseif key == "top" then
+	    	set_surface_dirty(daters.surface);
+		set_surface_y(daters.surface, value);
+	    elseif key == "left" then
+	    	set_surface_dirty(daters.surface);
+		set_surface_x(daters.surface, value);
+	    elseif key == "z" then
+	    	set_surface_dirty(daters.surface);
+		set_surface_z(daters.surface, value);
+	    elseif key == "font" then
+		set_surface_dirty(daters.surface);
+		daters.font = value;
+		set_surface_font(daters.surface, value.surface);
+	    elseif key == "parent" then
+		daters.parent = value;
+		daters.z = daters.parent.z;
+		set_surface_parent(daters.surface, value.surface);
+--[[		echo(type(daters.parent).."\n");
+		if type(daters.parent) == "nil" then
+		    echo("daters.parent == nil is true\n");
+		else
+		    echo("daters.parent == nil is false\n");
+		    echo(daters.parent.margin_top.."\n");
+		    
+		    if type(daters.parent.margin_top) == "nil" then
+		    else
+			if type(daters.top) == "nil" then
+			    daters.top = 0;
+			end
+			echo("margin_top bitch\n");
+			daters.top = daters.parent.margin_top + daters.top;
+			echo(daters.top.."\n");
+		    end
+		end
+]]
+	    	set_surface_dirty(daters.surface);
+--		set_surface_dirty(daters.parent.surface);
+		
+	    elseif key == "backcolor" then
+		set_surface_backcolor(daters.surface, value);
+	    elseif key == "forecolor" then
+		set_surface_forecolor(daters.surface, value);
+	    elseif key == "transcolor" then
+		set_surface_dirty(daters.surface);
+		set_surface_transcolor(daters.surface, value);
+	    elseif key == "alpha" then
+		set_surface_dirty(daters.surface);
+		if (type(value) == "string") then
+		    value = tonumber(value);
+		end
+		if (tonumber(value) > 255) then
+		    value = 255;
+		end
+		if (tonumber(value) < 0) then
+		    value = 0;
+		end
+		set_surface_alpha(daters.surface, value);
+	    elseif key == "transparent" then
+		set_surface_dirty(daters.surface);
+		set_surface_transparent(daters.surface, value);
+	    elseif key == "rotation" then
+		set_surface_dirty(daters.surface);
+		set_surface_rotation(daters.surface, value);
+	    elseif key == "visible" then
+		set_surface_dirty(daters.surface);
+		set_surface_visible(daters.surface, value);
+	    elseif key == "on_draw" then
+		daters.on_draw = value;
+		set_surface_on_draw(daters.surface, value);
+		daters.on_draw();
+	    elseif key == "on_got_focus" then
+		daters.on_got_focus = value;
+		set_surface_on_got_focus(daters.surface, value);		
+	    elseif key == "on_lost_focus" then
+		daters.on_lost_focus = value;
+		set_surface_on_lost_focus(daters.surface, value);
+	    elseif key == "on_keypress" then
+		daters.on_keypress = value;
+		set_surface_on_keypress(daters.surface, value);
+
+	    elseif key == "on_mouse_down" then
+		daters.on_mouse_down = value;
+		set_surface_on_mouse_down(daters.surface, value);
+
+	    elseif key == "on_mouse_up" then
+		daters.on_mouse_up = value;
+		set_surface_on_mouse_up(daters.surface, value);
+
+	    elseif key == "on_mouse_click" then
+		daters.on_mouse_click = value;
+		set_surface_on_mouse_click(daters.surface, value);
+	    elseif key == "always_on_top" then
+		daters.always_on_top = value;
+		set_surface_always_on_top(daters.surface, value);
+	    elseif key == "bmp" then
+		surface_load_bmp(daters.surface, value);
+		daters.bmp = value;
+	    elseif key == "gif" then
+		set_surface_transparent(daters.surface, 1);
+		surface_load_gif(daters.surface, value);
+		daters.gif = value;
+	    elseif key == "noevents" then
+		set_surface_noevents(daters.surface, value);
+	    elseif key == "tab_index" then
+		if (get_surface_tab_index(daters.surface) == -1) then
+		    set_surface_tab_index(daters.surface, value);
+		    if (value == 0) then
+		        daters.set_focus();
+		    end
+		else    
+		    set_surface_tab_index(daters.surface, value);
+		end 
+		
+	    elseif key == "dirty" then
+		if (value == 1) then
+		    set_surface_dirty(daters.surface);
+		else 
+		    set_surface_dirty(daters.surface, value);
+		end
+	    else
+		daters[key] = value;
+	    end
+	    daters[key] = value;
+	end	
+    }
+    );
+
+    daters.on_keypress = function (keycode, keyval)
+	if (keyval == 13) then
+	    if (type(daters.on_return) == 'function') then
+		daters.on_return();
+	    end
+	elseif (keyval == 9) then
+	    if (type(daters.on_tab) == 'function') then
+		daters.on_tab();
+	    end
+	    next_focus();
+	elseif (keyval == 27) then
+	    if (type(daters.on_escape) == 'function') then
+		daters.on_escape();
+	    end	    
+	end
+    end
+
+
+    daters.has_focus = function()
+	return surface_has_focus(daters.surface);
+    end
+
+    daters.text_length = function(text)
+	retval = surface_get_text_length(daters.surface, text);
+	return retval;
+    end
+
+    daters.text_height = function()
+	return surface_get_text_height(daters.surface);
+    end
+	
+    daters.gradient = function (color1, color2) 
+	gradient(daters.surface, 0, 0, get_surface_width(daters.surface), get_surface_height(daters.surface), color1, color2);
+    end
+
+    daters.draw_gradient = function (x1, y1, x2, y2, color1, color2) 
+	gradient(daters.surface, x1, y1, x2, y2, color1, color2);
+    end
+    
+    daters.clear = function ()
+--	set_surface_dirty(daters.surface);
+	surface_clear(daters.surface);
+    end
+        
+    daters.print = function (x, y, text)
+--	set_surface_dirty(daters.surface);
+	surface_print(daters.surface, x, y, text);
+    end
+
+    daters.line = function (x1, y1, x2, y2)
+	surface_line(daters.surface, x1, y1, x2, y2);
+    end
+
+    daters.rect = function (x1, y1, x2, y2)
+	surface_rect(daters.surface, x1, y1, x2, y2);
+    end
+
+    daters.rect_fill = function (x1, y1, x2, y2)
+	surface_rect_fill(daters.surface, x1, y1, x2, y2);
+    end
+    
+    daters.set_focus = function ()
+	set_focus(daters.surface);
+    end
+    
+    --[[
+    daters.blit = function (dest, source_x, source_y, dest_x, dest_y, width, height)
+	if (type(source_x) == "nil") then
+	    surface_blit(daters.surface, dest);
+	else 
+	    surface_blit(daters.surface, dest, source_x, source_y, dest_x, dest_y, width, height)
+	end
+    end
+    ]]
+    daters.set_dirty = function ()
+	set_surface_dirty(daters.surface);
+    end
+    
+    daters.destroy = function ()
+	destroy_surface(daters.surface);
+	set_surface_dirty(daters.parent);
+	daters = nil;
+	--return nil;
+    end
+    
+    daters.dump = function ()
+	echo("dump\n");
+	for key, value in pairs(daters) do 
+	    echo("Key: ");
+	    echo(key);
+	    echo(" Value: ");
+	    echo(value);
+	    echo("\n");
+	end
+    end
+    return object;
+end
+
+button = {};
+function button:new()
+    local object = {};
+    local daters = {};
+    daters.surface = surface:new();
+    daters.caption = "Button";
+    daters.surface.width = 60;
+    daters.surface.height = 20;
+    daters.surface.forecolor = getvar("colors", "widget-forecolor");
+    daters.surface.backcolor = getvar("colors", "widget-backcolor");    
+    
+    daters.surface.on_draw = function () 
+	if (daters.down ~= 1) then
+	    daters.surface.gradient(daters.surface.forecolor, daters.surface.backcolor); 
+	    
+	else
+	    daters.surface.gradient(daters.surface.backcolor, daters.surface.forecolor); 
+	end
+	if (daters.surface.has_focus() == 1) then
+	    daters.surface.rect(0, 0, daters.surface.width - 1, daters.surface.height - 1);
+	    daters.surface.rect(2, 2, daters.surface.width - 3, daters.surface.height - 3);
+	end
+	if (daters.surface.font) then
+	    daters.surface.print(6, 3, daters.caption);
+	end
+    end
+    
+    daters.surface.on_mouse_down = function (button, x, y) 
+	daters.down = 1;
+	daters.surface.set_dirty();
+	--daters.surface.on_draw();
+    end
+
+    daters.surface.on_mouse_up = function (button, x, y) 
+	daters.down = 0;	
+	daters.surface.set_dirty();
+	if (daters.surface.on_click) then
+	    daters.surface.on_click();
+	end
+    end
+    
+    setmetatable(object, {
+	-- GET DATA
+	__index = function (table, key) 
+	    if key == "width" then
+		return daters.surface.width;
+	    else 
+		return daters.surface[key];
+	    end
+	end,
+	-- SET DATA
+	__newindex = function (table, key, value)
+	    if key == "width" then
+		daters.surface.width = value;
+	    elseif key == "caption" then
+		daters.caption = value;
+		if (daters.surface.font) then
+		    daters.surface.height = daters.surface.text_height() + 6;
+		    daters.surface.width = daters.surface.text_length(value) + 12;
+		end
+	    else
+		daters.surface[key] = value;
+	    end
+	end	
+    }
+    );
+
+    daters.surface.on_keypress = function (keycode, keyval)
+	--echo("key pressed!".. keyval .."\n");
+	set_surface_dirty(daters.surface.surface);	
+	if (keyval == 13) then
+	    if (type(daters.surface.on_click) == 'function') then
+		daters.surface.on_click();
+	    end
+	elseif (keyval == 9) then
+	    if (type(daters.surface.on_tab) == 'function') then
+		daters.surface.on_tab();
+	    end
+	    next_focus();
+	elseif (keyval == 27) then
+	    if (type(daters.surface.on_escape) == 'function') then
+		daters.surface.on_escape();
+	    end	    
+	end
+    end
+
+        
+    return object;
+end
+
+image = {};
+function image:new()
+    local object = {};
+    local daters = {};
+    daters.surface = surface:new();
+
+    daters.surface.on_mouse_up = function (button, x, y) 
+	daters.surface.set_dirty();
+	if (daters.surface.on_click) then
+	    daters.surface.on_click();
+	end
+    end
+    
+    setmetatable(object, {
+	-- GET DATA
+	__index = function (table, key) 
+	    if key == "width" then
+		return daters.surface.width;
+	    else 
+		return daters.surface[key];
+	    end
+	end,
+	-- SET DATA
+	__newindex = function (table, key, value)
+	    if key == "width" then
+		daters.surface.width = value;
+	    elseif key == "img" then
+	    else
+		daters.surface[key] = value;
+	    end
+	end	
+    }
+    );
+
+    daters.surface.load_image = function()
+	echo("LOAD IMAGE\n\n\n");
+	if (daters.surface.hostname) then
+	    if (tostring(daters.surface.image_name) == '') then
+		daters.surface.image_file = "system/tmp/".. tick() ..".gif";
+	    else
+		daters.surface.image_file = "system/tmp/".. daters.surface.image_name;
+	    end
+	    print(daters.surface.hostname, daters.surface.src, daters.surface.image_file, "\n\n");
+	    download_file(daters.surface.hostname, daters.surface.src, daters.surface.options, daters.surface.image_file);
+	    daters.surface.gif = daters.surface.image_file;
+	else
+	    
+	end	
+    end
+        
+    return object;
+end
+
+
+hidden = {};
+function hidden:new()
+    local object = {};
+    local daters = {};
+    
+    setmetatable(object, {
+	-- GET DATA
+	__index = function (table, key) 
+	    if key == "width" then
+		return daters.width;
+	    else 
+		return daters[key];
+	    end
+	end,
+	-- SET DATA
+	__newindex = function (table, key, value)
+	    if key == "width" then
+		daters[key] = value;
+	    else
+		daters[key] = value;
+	    end
+	end	
+    }
+    );
+
+        
+    return object;
+end
+
+
+label = {};
+function label:new()
+    local object = {};
+    local daters = {};
+    daters.surface = surface:new();
+    daters.caption = "Label";
+    daters.surface.width = 60;
+    daters.surface.height = 20;
+    daters.surface.forecolor = getvar("colors", "widget-forecolor");
+    daters.surface.backcolor = getvar("colors", "widget-backcolor");    
+    
+    daters.surface.on_draw = function () 
+	daters.surface.clear();
+	if (daters.surface.font) then
+	    daters.surface.print(6, 3, daters.caption);
+	end
+    end
+    
+    daters.surface.on_mouse_down = function (button, x, y) 
+	daters.down = 1;
+	daters.surface.set_dirty();
+	--daters.surface.on_draw();
+    end
+
+    daters.surface.on_mouse_up = function (button, x, y) 
+	daters.down = 0;	
+	daters.surface.set_dirty();
+	if (daters.surface.on_click) then
+	    daters.surface.on_click();
+	end
+    end
+    
+    setmetatable(object, {
+	-- GET DATA
+	__index = function (table, key) 
+	    if key == "width" then
+		return daters.surface.width;
+	    else 
+		return daters.surface[key];
+	    end
+	end,
+	-- SET DATA
+	__newindex = function (table, key, value)
+	    if key == "width" then
+		daters.surface.width = value;
+	    elseif key == "caption" then
+		daters.caption = value;
+		if (daters.surface.font) then
+		    daters.surface.height = daters.surface.text_height() + 6;
+		    daters.surface.width = daters.surface.text_length(value) + 12;
+		end
+	    else
+		daters.surface[key] = value;
+	    end
+	end	
+    }
+    );
+--[[
+    daters.surface.on_keypress = function (keycode, keyval)
+	--echo("key pressed!".. keyval .."\n");
+	set_surface_dirty(daters.surface.surface);	
+	if (keyval == 13) then
+	    if (type(daters.surface.on_click) == 'function') then
+		daters.surface.on_click();
+	    end
+	elseif (keyval == 9) then
+	    if (type(daters.surface.on_tab) == 'function') then
+		daters.surface.on_tab();
+	    end
+	elseif (keyval == 27) then
+	    if (type(daters.surface.on_escape) == 'function') then
+		daters.surface.on_escape();
+	    end	    
+	end
+    end
+]]
+    daters.surface.on_keypress = function (keycode, keyval)
+	--echo("key pressed!".. keyval .."\n");
+	set_surface_dirty(daters.surface.surface);	
+	if (keyval == 13) then
+	    if (type(daters.surface.on_click) == 'function') then
+		daters.surface.on_click();
+	    end
+	elseif (keyval == 9) then
+	    if (type(daters.surface.on_tab) == 'function') then
+		daters.surface.on_tab();
+	    end
+	    next_focus();
+	elseif (keyval == 27) then
+	    if (type(daters.surface.on_escape) == 'function') then
+		daters.surface.on_escape();
+	    end	    
+	end
+    end
+        
+    return object;
+end
+
+
+window = {};
+function window:new()
+    local object = {};
+    local daters = {};
+    
+    daters.surface = surface:new();
+    daters.surface.visible = 0;
+    daters.surface.width = 320;
+    daters.surface.height = 240;
+    daters.surface.titlebar_height = 24;
+    daters.surface.no_titlebar = 0;
+    daters.surface.resizable = 1;
+    
+
+    daters.close = button:new();
+    daters.close.position_absolute = 1;
+    daters.close.parent = daters.surface;
+    daters.close.width = daters.surface.titlebar_height;
+    daters.close.height = daters.surface.titlebar_height - 3;
+    daters.close.top = 3;
+    daters.close.left = daters.surface.width - daters.close.width - 3;
+
+    daters.surface.z = 99999;
+    daters.surface.caption = "Window";    
+    daters.surface.alpha = 0;
+    daters.fade_in = 0;
+    daters.fade_out = 0;
+    daters.tick = timer();
+    daters.surface.margin_left = 3;
+    daters.surface.margin_right = 3;
+    daters.surface.margin_top = 32;
+    daters.surface.margin_bottom = 3;
+    daters.surface.bare = 0;
+    daters.surface.grow = 0;
+    daters.surface.draggable = 1;
+    daters.surface.z = 9999;
+    daters.surface.current_top = 0;
+    daters.surface.current_left = 0;
+    
+    daters.children = {};
+    daters.child_count = 0;
+    
+    daters.vscroll = scrollbar:new();    
+    daters.vscroll.visible = 0;    
+
+    daters.surface.add_child = function(child)
+	daters.children[daters.child_count] = child;
+    end
+    
+    daters.surface.next_child = function(child)
+	found = 0;
+	for key, object in pairs(daters.children) do
+	    if found ~= 0 then
+		return object;
+	    end 
+	    if object == child then
+		echo("found child\n");
+		found = key;
+	    end
+	end
+    end
+    
+    daters.surface.align_center = function(child)
+	retval = (daters.surface.width * 0.5) - (child.width * 0.5);
+	return retval;
+    end
+
+    daters.surface.align_top = function(child)
+	retval = daters.surface.margin_top + daters.surface.current_top;
+	daters.surface.current_top = daters.surface.current_top + child.height + 5;
+	daters.vscroll.max = daters.surface.current_top;	
+	if (daters.vscroll.max > daters.surface.height) then
+	    daters.vscroll.visible = 1;
+	else 
+	    daters.vscroll.visible = 0;
+	end
+	--echo("align top = "..retval);
+	--echo("\n");
+	return retval;
+    end
+
+    daters.surface.align_left = function(child)
+	retval = daters.surface.margin_left + daters.surface.current_left;
+	daters.surface.current_left = daters.surface.current_left + child.width;
+	return retval;
+    end
+
+    daters.surface.align_clear = function()
+	daters.surface.current_top = 0;
+	daters.surface.current_left = 0;
+	daters.vscroll.max = daters.surface.current_top;
+	
+    end
+    
+    daters.surface.on_draw = function () 
+	if (type(daters.vscroll) == "table") then
+	    if (daters.surface.current_top > daters.surface.height - (daters.surface.margin_top + daters.surface.margin_bottom)) then
+		--daters.vscroll.visible =1;
+	    end
+	end
+	if (daters.surface.bare ~= 1) then
+	    daters.surface.gradient(makecol(190, 190, 190), makecol(128, 128, 128)); 
+	end
+--	daters.surface.gradient(makecol(190, 190, 190), makecol(128, 128, 128)); 
+	if (daters.surface.no_titlebar == 0) then 
+	    if (daters.surface.font) then
+		daters.surface.titlebar_height = daters.surface.text_height() + 4;
+		daters.surface.margin_top = daters.surface.titlebar_height + 8;
+		daters.close.height = daters.surface.titlebar_height - 3;
+	    end
+	    daters.surface.draw_gradient(3, 3, daters.surface.width - 3, daters.surface.titlebar_height, makecol(190, 190, 250), makecol(128, 128, 250)); 	
+	    if (daters.surface.font) then
+		y = 3 + (daters.surface.titlebar_height / 2) - (daters.surface.text_height() / 2)
+		daters.surface.print(6, y, daters.surface.caption);
+	    end
+	end
+	if (daters.fade_in == 1) then
+	    if (daters.surface.alpha <= 0) then
+		daters.fade_in = 0;
+	    end	    
+	    daters.surface.alpha = daters.surface.alpha - (getvar("windows", "fade-out-speed") * (timer() - daters.tick));
+	    daters.surface.set_dirty();
+	    daters.tick = timer();
+	end
+--[[	if (daters.fade_out == 1) then	    
+	    daters.surface.alpha = daters.surface.alpha + (256 * (timer() - daters.tick));
+	    daters.surface.set_dirty();
+	    daters.tick = timer();
+	    if (daters.surface.alpha >= 255) then
+		daters.fade_out = 0;
+		if (daters.destroy_atfer_fade_out == 1) then
+		    --daters.surface.destroy();
+		end
+	    end	    
+	end]]
+	if (type(daters.surface.on_redraw) == 'function') then
+	    daters.surface.on_redraw();
+	end	
+    end
+    
+    daters.surface.on_mouse_down = function(button, x, y) 
+	if (daters.surface.draggable == 1) then
+	    if (daters.dragging ~= 1) then
+		daters.drag_x = x - daters.surface.left;
+		daters.drag_y = y - daters.surface.top;
+		daters.surface.alpha = getvar("windows", "lost-focus-alpha");
+		daters.dragging = 1;
+		daters.drag_mode = 0;
+--[[		if (x > daters.surface.width - 3) then
+		    if (x < daters.surface.width + 3) then
+			daters.drag_mode = 1
+		    end
+		end]]
+	    end
+	    if (daters.drag_mode == 0) then
+		daters.surface.left = x - daters.drag_x;
+		daters.surface.top = y - daters.drag_y;
+	    else if (daters.drag_mode == 1) then
+		--daters.surface.width = x - daters.drag_x;
+		echo("Resize width:".. tostring(x).."\n");
+	    end
+	    daters.surface.z = 9999;	
+	end
+    end
+    
+    daters.surface.on_mouse_up = function(button, x, y)
+	daters.dragging = 0;
+	daters.surface.alpha = getvar("windows", "got-focus-alpha");
+    end
+    
+    daters.close.on_click = function(button, x, y) 
+	if (daters.close.visible == 1) then
+	    echo("WTF\n");
+	    daters.tick = timer();
+	    daters.surface.set_dirty();
+	    if (daters.surface.fade_out) then
+		while (daters.surface.alpha < 255) do
+		    daters.surface.alpha = daters.surface.alpha + (getvar("windows", "fade-out-speed") * (timer() - daters.tick));
+		    daters.surface.set_dirty();
+		    daters.tick = timer();	    
+		    vsync();
+		end
+	    end
+	    daters.surface.destroy();
+	end
+    end 
+    setmetatable(object, {
+	-- GET DATA
+	__index = function (table, key) 
+	    if key == "width" then
+		return daters.surface.width;
+	    elseif key == "inside_width" then
+		return daters.surface.width - (daters.surface.margin_left + daters.surface.margin_right);
+	    elseif key == "inside_height" then
+		return daters.surface.height - (daters.surface.margin_top + daters.surface.margin_bottom);
+	    elseif key == "close" then
+		return daters.close;
+	    else 
+		return daters.surface[key];
+	    end
+	end,
+	-- SET DATA
+	__newindex = function (table, key, value)
+	    if key == "width" then		
+		daters.vscroll.left = value - daters.vscroll.width - daters.surface.margin_right; 
+		daters.surface.width = value;
+		daters.vscroll.top = daters.vscroll.parent.margin_top;
+		daters.vscroll.left = daters.vscroll.parent.width - daters.vscroll.width - scroll.parent.margin_right;
+		daters.vscroll.height = daters.vscroll.parent.height - daters.vscroll.top - scroll.parent.margin_bottom - 3;
+
+		daters.close.left = daters.surface.width - daters.close.width - 3;
+		if (type(daters.surface.on_resize) == "function") then
+		    daters.surface.on_resize();
+		end		
+	    elseif key == "height" then
+		daters.surface.height = value;
+		--if (daters.vscroll.height ~=  daters.vscroll.parent.height) then
+		daters.vscroll.height = value - daters.surface.margin_top;
+		daters.vscroll.height = daters.vscroll.height - daters.surface.margin_bottom;
+		--daters.vscroll.height = value - 32;		
+		--echo("setting vscroll height to :" 
+		--end
+		if (type(daters.surface.on_resize) == "function") then
+		    daters.surface.on_resize();
+		end
+	    elseif key == "caption" then
+		daters.surface.caption = value;
+		daters.surface.on_draw();
+
+	    else
+		daters.surface[key] = value;
+	    end
+	    daters.surface[key] = value;
+	end	
+    }
+    );
+
+    daters.vscroll.position_absolute = 1;
+    daters.vscroll.parent = daters.surface;
+    daters.vscroll.size = (daters.surface.height - daters.surface.margin_top - daters.surface.margin_bottom) / 10;
+    daters.vscroll.visible = 0;
+    daters.vscroll.on_change = function ()
+	daters.vscroll.parent.y_offset = 0 - daters.vscroll.value;
+    end
+
+    daters.vscroll.on_mouse_up = function ()
+	daters.surface.set_dirty();
+    end
+
+    return object;
+end
+
+old_window = {};
+function old_window:new()
+    local object = {};
+    local daters = {};
+    
+    daters.surface = surface:new();
+    daters.surface.visible = 0;
+    daters.surface.width = 320;
+    daters.surface.height = 240;
+    daters.surface.titlebar_height = 24;
+    daters.close = button:new();
+    daters.close.parent = daters.surface;
+    daters.close.width = daters.surface.titlebar_height;
+    daters.close.height = daters.surface.titlebar_height - 3;
+    daters.close.top = 3;
+    daters.close.left = daters.surface.width - daters.close.width - 3;
+    daters.surface.z = 99999;
+    daters.surface.caption = "Window";    
+    daters.surface.alpha = 255;
+    daters.fade_in = 1;
+    daters.fade_out = 0;
+    daters.tick = timer();
+    daters.surface.margin_left = 3;
+    daters.surface.margin_right = 3;
+    daters.surface.margin_top = 32;
+    daters.surface.margin_bottom = 3;
+    daters.surface.bare = 0;
+    daters.surface.grow = 0;
+    daters.surface.draggable = 1;
+    daters.surface.z = 9999;
+    
+    daters.surface.on_draw = function () 
+	if (daters.surface.bare ~= 1) then
+	    daters.surface.gradient(makecol(190, 190, 190), makecol(128, 128, 128)); 
+	    daters.surface.draw_gradient(3, 3, daters.surface.width - 3, daters.surface.titlebar_height, makecol(190, 190, 250), makecol(128, 128, 250)); 
+	end
+	if (daters.surface.font) then
+	    y = 3 + (daters.surface.titlebar_height / 2) - (daters.surface.text_height() / 2)
+	    daters.surface.print(6, y, daters.surface.caption);
+	end
+	if (daters.fade_in == 1) then
+	    if (daters.surface.alpha <= 0) then
+		daters.fade_in = 0;
+	    end	    
+	    daters.surface.alpha = daters.surface.alpha - (getvar("windows", "fade-out-speed") * (timer() - daters.tick));
+	    daters.surface.set_dirty();
+	    daters.tick = timer();
+	end
+--[[	if (daters.fade_out == 1) then	    
+	    daters.surface.alpha = daters.surface.alpha + (256 * (timer() - daters.tick));
+	    daters.surface.set_dirty();
+	    daters.tick = timer();
+	    if (daters.surface.alpha >= 255) then
+		daters.fade_out = 0;
+		if (daters.destroy_atfer_fade_out == 1) then
+		    --daters.surface.destroy();
+		end
+	    end	    
+	end]]
+	if (type(daters.surface.on_redraw) == 'function') then
+	    daters.surface.on_redraw();
+	end	
+    end
+    
+    daters.surface.on_mouse_down = function(button, x, y) 
+	if (daters.surface.draggable == 1) then
+	    if (daters.dragging ~= 1) then
+		daters.drag_x = x - daters.surface.left;
+		daters.drag_y = y - daters.surface.top;
+		daters.surface.alpha = getvar("windows", "lost-focus-alpha");
+		daters.dragging = 1;
+	    end
+	    daters.surface.left = x - daters.drag_x;
+	    daters.surface.top = y - daters.drag_y;
+	    daters.surface.z = 9999;	
+	end
+    end
+    
+    daters.surface.on_mouse_up = function(button, x, y)
+	daters.dragging = 0;
+	daters.surface.alpha = getvar("windows", "got-focus-alpha");
+    end
+    
+    daters.close.on_click = function(button, x, y) 
+	
+	daters.tick = timer();
+	daters.surface.set_dirty();
+	while (daters.surface.alpha < 255) do
+	    daters.surface.alpha = daters.surface.alpha + (getvar("windows", "fade-out-speed") * (timer() - daters.tick));
+	    daters.surface.set_dirty();
+	    daters.tick = timer();	    
+	    vsync();
+	end
+	daters.surface.destroy();
+    end 
+    setmetatable(object, {
+	-- GET DATA
+	__index = function (table, key) 
+	    if key == "width" then
+		return daters.surface.width;
+	    elseif key == "inside_width" then
+		return daters.surface.width - (daters.surface.margin_left + daters.surface.margin_right);
+	    elseif key == "inside_height" then
+		return daters.surface.height - (daters.surface.margin_top + daters.surface.margin_bottom);
+	    else 
+		return daters.surface[key];
+	    end
+	end,
+	-- SET DATA
+	__newindex = function (table, key, value)
+	    if key == "width" then		
+		daters.surface.width = value;
+		daters.close.left = daters.surface.width - daters.close.width - 3;
+		if (type(daters.surface.on_resize) == "function") then
+		    daters.surface.on_resize();
+		end		
+	    elseif key == "height" then
+		daters.surface.height = value;
+		if (type(daters.surface.on_resize) == "function") then
+		    daters.surface.on_resize();
+		end
+	    elseif key == "caption" then
+		daters.surface.caption = value;
+		daters.surface.on_draw();
+	    else
+		daters.surface[key] = value;
+	    end
+	    daters.surface[key] = value;
+	end	
+    }
+    );
+
+    return object;
+end
+
+
+
+textbox = {};
+function textbox:new()
+    local object = {};
+    local daters = {};
+    daters.surface = surface:new();
+    daters.surface.width = 60;
+    daters.surface.height = 20;
+    daters.surface.backcolor = makecol(255, 255, 255);
+    daters.surface.forecolor = 0;
+    daters.surface.clear();
+    daters.text = "";
+    daters.startpos = 0;
+    daters.surface.on_draw = function () 
+	daters.surface.clear()
+	--echo("starting at ");
+	echo(daters.startpos);
+	--echo("\n");
+	daters.prevline = daters.nextline;
+	daters.nextline = surface_print_wordwrap(daters.surface.surface, daters.text, daters.startpos);
+	--echo("next line is ");
+	echo(daters.nextline);
+	--echo("\n");
+
+	--echo("prev line is ");
+	echo(daters.prevline);
+	--echo("\n");
+
+    end
+    daters.surface.on_keypress = function (keycode, keyval)
+	--echo("key pressed!".. keycode .."\n");
+	if keycode == 84 then
+	    daters.startpos = daters.prevline;
+	    if daters.startpos < 0 then
+		daters.startpos = 0;
+	    end
+	elseif keycode == 85 then
+	    daters.startpos = daters.nextline;
+	    if daters.startpos > string.len(daters.text) then
+		daters.startpos = string.len(daters.text);
+	    end
+	else
+	end
+	set_surface_dirty(daters.surface.surface);		
+	
+    end
+    setmetatable(object, {
+	-- GET DATA
+	__index = function (table, key) 
+	    if key == "width" then
+		return daters.surface.width;
+	    elseif key == "text" then
+		return daters.text;
+	    elseif key == "startpos" then
+		return daters.startpos;
+	    elseif key == "nextline" then
+		return daters.nextline;
+	    else 
+		return daters.surface[key];
+	    end
+	end,
+	-- SET DATA
+	__newindex = function (table, key, value)
+	    echo("setting "..key.."\n");
+	    if key == "text" then
+		daters.text = value;
+		set_surface_dirty(daters.surface.surface);		
+		daters.surface.on_draw();
+	    elseif key == "nextline" then
+		daters.nextline = value;
+	    elseif key == "startpos" then
+		--echo("new start\n");
+		daters.startpos = value;
+		set_surface_dirty(daters.surface.surface);		
+		daters.surface.on_draw();		
+	    elseif key == "width" then
+		daters.surface.width = value;
+	    else
+		daters.surface[key] = value;
+	    end
+	end	
+    }
+    );
+
+        
+    return object;
+end
+
+inputbox = {};
+function inputbox:new()
+    local object = {};
+    local daters = {};
+    daters.surface = surface:new();
+    daters.surface.width = 80;
+    daters.surface.height = 20;
+    daters.surface.backcolor = 0; --makecol(255, 255, 255);
+    daters.surface.forecolor = 0; --makecol(255, 255, 255);
+    daters.surface.clear();
+    daters.text = "";
+    daters.value = daters.text;
+    daters.startpos = 0;
+    daters.textwidth = 0;
+    daters.label = "";
+    daters.surface.multi_line = 0;
+    
+    daters.surface.on_draw = function () 	
+	daters.surface.clear()
+	daters.surface.gradient(makecol(255, 255, 255), makecol(200, 200, 200));
+	if (daters.textwidth > daters.surface.width) then
+	    xoffset = daters.textwidth - daters.surface.width + 6;
+	    xoffset = xoffset - 5;
+	    yoffset = 0 + 2;
+	else
+	    xoffset = 0 - 5;
+	    yoffset = 0 + 2;
+	end
+	x = 3;
+	y = 3;
+	if (daters.surface.multi_line == 1) then
+	    if (daters.surface.password) then
+	        surface_print_wordwrap(x, y, daters.surface.surface, string.rep(daters.surface.password, string.len(daters.text)), 0);	    
+	    else
+	        surface_print_wordwrap(x, y, daters.surface.surface, daters.text, 0);	    
+	    end	    
+	else
+	    if (daters.surface.password) then
+	        daters.surface.print(0 - xoffset, yoffset - 0, string.rep(daters.surface.password, string.len(daters.text)));
+	        --surface_print_wordwrap(x, y, daters.surface.surface, string.rep(daters.surface.password, string.len(daters.text)), 0);	    
+	    else
+	        daters.surface.print(0 - xoffset, yoffset - 0, daters.text);
+	        --surface_print_wordwrap(x, y, daters.surface.surface, daters.text, 0);	    
+	    end	    
+	end
+
+	if (daters.surface.has_focus() == 1) then
+	    daters.surface.rect(1, 1, daters.surface.width - 2, daters.surface.height - 2);
+	end
+
+    end
+    
+    daters.surface.on_got_focus = function ()
+	daters.surface.set_dirty();
+	daters.surface.on_draw();    
+    end
+    daters.surface.on_lost_focus = function ()
+	daters.surface.clear();
+	daters.surface.on_draw();
+	if (type(daters.surface.parent) == "table") then
+	    daters.surface.parent.set_dirty();
+	end
+	
+    end
+
+    daters.surface.on_mouse_click = function (button, x, y)
+	daters.surface.set_focus();
+	daters.surface.set_dirty();
+	
+    end
+    
+    daters.surface.on_keypress = function (keycode, keyval)
+	--echo("key pressed!".. daters.surface.multi_line .."\n");
+	
+	set_surface_dirty(daters.surface.surface);	
+	if (keyval == 8) then
+	    object.text = string.sub(object.text, 0, string.len(object.text) - 1);
+	elseif (keyval == 13) then
+	    if (daters.surface.multi_line == 1) then
+		object.text = object.text .. string.char(10);	    
+	    else 
+	        if (type(daters.surface.on_return) == 'function') then
+		    daters.surface.on_return();
+		end	    
+	    end
+	elseif (keyval == 9) then
+	    if (type(daters.surface.on_return) == 'function') then
+		daters.surface.on_return();
+	    end
+	    index = next_focus();
+	elseif (keyval == 27) then
+	    if (type(daters.surface.on_escape) == 'function') then
+		daters.surface.on_escape();
+	    end	    
+	elseif ((keyval > 31) and (keyval < 127)) then
+	    object.text = object.text .. string.char(keyval);
+	end
+    end
+    setmetatable(object, {
+	-- GET DATA
+	__index = function (table, key) 
+	    if key == "width" then
+		return daters.surface.width;
+	    elseif key == "text" then
+		return daters.text;
+	    elseif key == "startpos" then
+		return daters.startpos;
+	    elseif key == "nextline" then
+		return daters.nextline;
+	    else 
+		return daters.surface[key];
+	    end
+	end,
+	-- SET DATA
+	__newindex = function (table, key, value)
+	    --echo("setting "..key.."\n");
+	    if key == "text" then
+		--echo("setting text "..value.." oldvalue "..daters.text.."\n");
+		daters.text = value;
+		
+		if (value ~= "") then
+		    daters.textwidth = daters.surface.text_length(value);
+		else
+		    daters.textwidth = 0;
+		end
+		set_surface_dirty(daters.surface.surface);		
+		daters.surface.on_draw();
+	    elseif key == "value" then
+		daters.text = value;
+		if (value ~= "") then
+		    daters.textwidth = daters.surface.text_length(value);
+		else
+		    daters.textwidth = 0;
+		end
+		--set_surface_dirty(daters.surface.surface);		
+		--daters.surface.on_draw();
+
+	    elseif key == "nextline" then
+		daters.nextline = value;
+	    elseif key == "startpos" then
+		--echo("new start\n");
+		daters.startpos = value;
+		set_surface_dirty(daters.surface.surface);		
+		daters.surface.on_draw();		
+	    elseif key == "width" then
+		daters.surface.width = value;
+	    else
+		daters.surface[key] = value;
+	    end
+	end	
+    }
+    );
+
+        
+    return object;
+end
+
+
+multi_line_inputbox = {};
+function multi_line_inputbox:new()
+    local object = {};
+    local daters = {};
+    daters.surface = surface:new();
+    daters.surface.width = 60;
+    daters.surface.height = 20;
+    daters.surface.backcolor = 0; --makecol(255, 255, 255);
+    daters.surface.forecolor = 0; --makecol(255, 255, 255);
+    daters.surface.clear();
+    daters.text = "";
+    daters.startpos = 0;
+    daters.textwidth = 0;
+--    daters.vscroll = scrollbar:new();
+    
+    daters.surface.on_draw = function () 
+	daters.surface.clear()
+	if (daters.textwidth > daters.surface.width) then
+	    xoffset = daters.textwidth - daters.surface.width + 3;
+	else
+	    xoffset = 0;
+	end
+	if (daters.surface.has_focus() == 1) then
+	    --daters.surface.print(0 - xoffset, 0, daters.text.."|");
+	    surface_print_wordwrap(0, 0, daters.surface.surface, daters.text, 0);
+	else
+	    --daters.surface.print(0, 0, daters.text);
+	    surface_print_wordwrap(0, 0, daters.surface.surface, daters.text, 0);
+	end
+    end
+
+    daters.surface.on_mouse_click = function ()
+	daters.surface.set_focus();
+    end
+    
+    daters.surface.on_keypress = function (keycode, keyval)
+	--echo("key pressed!".. keyval .."\n");
+	set_surface_dirty(daters.surface.surface);	
+	if (keyval == 8) then
+	    object.text = string.sub(object.text, 0, string.len(object.text) - 1);
+	elseif (keyval == 13) then
+	    object.text = object.text .. string.char(10);
+	elseif (keyval == 9) then
+	    if (type(daters.surface.on_return) == 'function') then
+		daters.surface.on_return();
+	    end
+	elseif (keyval == 27) then
+	    if (type(daters.surface.on_escape) == 'function') then
+		daters.surface.on_escape();
+	    end	    
+	elseif ((keyval > 31) and (keyval < 127)) then
+	    object.text = object.text .. string.char(keyval);
+	end
+    end
+    setmetatable(object, {
+	-- GET DATA
+	__index = function (table, key) 
+	    if key == "width" then
+		return daters.surface.width;
+	    elseif key == "text" then
+		return daters.text;
+	    elseif key == "startpos" then
+		return daters.startpos;
+	    elseif key == "nextline" then
+		return daters.nextline;
+	    else 
+		return daters.surface[key];
+	    end
+	end,
+	-- SET DATA
+	__newindex = function (table, key, value)
+	    --echo("setting "..key.."\n");
+	    if key == "text" then
+		daters.text = value;
+		if (value ~= "") then
+		    daters.textwidth = daters.surface.text_length(value);
+		else
+		    daters.textwidth = 0;
+		end
+		--set_surface_dirty(daters.surface.surface);		
+		--daters.surface.on_draw();
+	    elseif key == "nextline" then
+		daters.nextline = value;
+	    elseif key == "startpos" then
+		--echo("new start\n");
+		daters.startpos = value;
+		set_surface_dirty(daters.surface.surface);		
+		daters.surface.on_draw();		
+	    elseif key == "width" then
+		daters.surface.width = value;
+	    else
+		daters.surface[key] = value;
+	    end
+	end	
+    }
+    );
+
+        
+    return object;
+end
+scrollbar = {};
+function scrollbar:new()
+    local object = {};
+    local daters = {};
+    daters.surface = surface:new();
+    scroll = daters.surface;
+    scroll.vertical = 1;
+    scroll.visible = 0;
+    scroll.size = 10;
+    
+    scroll.on_draw = function () 
+	if scroll.visible ~= 0 then
+	    col1 = makecol(190, 190, 190);
+	    col2 = makecol(100, 100, 100);
+	    
+	    scroll.clear()
+	    --scroll.gradient(col2, col2);
+	    scroll.position = ((scroll.height - scroll.size) / scroll.max) * scroll.value;
+	    y1 = scroll.position;
+	    y2 = scroll.position + scroll.size;
+
+	    --scroll.forecolor = makecol(128, 0, 0);
+	    --scroll.backcolor = makecol(128, 0, 0);
+	    --scroll.rect(0, y1, scroll.width, y2);
+	    scroll.forecolor = col1;
+	    scroll.rect_fill(0, 0, scroll.width, scroll.height);
+	    scroll.forecolor = col2;
+	    scroll.rect(0, 0, scroll.width - 1, scroll.height - 1);
+	    --gradient(scroll.surface, 0, y1, scroll.width, y2, col1, col2);
+	    scroll.rect_fill(0, y1, scroll.width, y2);
+
+	    scroll.hitbox_x1 = 0;
+	    scroll.hitbox_y1 = y1;	    
+	    scroll.hitbox_x2 = scroll.width;
+	    scroll.hitbox_y2 = y2;
+	    if scroll.value ~= scroll.last_value then
+		if type(scroll.on_change) == 'function' then
+		    scroll.on_change();
+		end
+	    end
+	    scroll.last_value = value;
+	end
+    end
+
+    scroll.on_mouse_up = function(button, x, y)
+	scroll.dragging = 0;
+    end
+    
+    scroll.on_mouse_down = function (button, x, y)
+	x = x - scroll.left;
+	y = y - scroll.top;
+--[[	if (x > scroll.hitbox_x1) then
+	    if (x < scroll.hitbox_x2) then
+		if (y > scroll.hitbox_y1) then
+		    if (y < scroll.hitbox_y2) then
+			echo("drag\n\n");
+			if (scroll.dragging ~= 1) then
+			    scroll.dragging = 1;
+			end
+		    end
+		end
+	    end
+	end]]
+	if scroll.vertical == 1 then
+	    scroll.value = (scroll.max / scroll.height) * (y - (scroll.size * .5));
+	else
+	    
+	end
+	if scroll.value > scroll.max then
+	    scroll.value = scroll.max;
+	end 
+	if scroll.value < scroll.min then
+	    scroll.value = scroll.min;
+	end
+	if scroll.has_focus ~= true then
+	    --echo("setting focus\n");
+	    --scroll.set_focus();
+	end
+	scroll.on_draw();
+	scroll.set_dirty();
+    end
+    scroll.on_keypress = function (keycode, keyval)
+	--echo(keycode.."\n");
+	set_surface_dirty(scroll.surface);	
+	if (keycode == 8) then
+	elseif (keycode == 84) then
+	    -- up
+	    scroll.value = scroll.value - scroll.size;
+	    scroll.set_dirty();
+	elseif (keycode == 85) then
+	    -- down
+	    scroll.value = scroll.value + scroll.size;
+	    scroll.set_dirty();
+	elseif (keycode == 80) then
+	    -- page-up
+	    scroll.value = scroll.value - scroll.size;
+	    scroll.set_dirty();
+	elseif (keycode == 81) then
+	    -- page-down
+	    scroll.value = scroll.value + scroll.size;
+	    scroll.set_dirty();
+
+	elseif (keycode == 78) then
+	    -- home
+	    scroll.value = scroll.min;
+	    scroll.set_dirty();
+	elseif (keycode == 79) then
+	    -- end
+	    scroll.value = scroll.max;
+	    scroll.set_dirty();
+
+	elseif (keycode == 83) then
+	    -- left
+	    scroll.value = scroll.value - scroll.size;
+	    scroll.set_dirty();
+	elseif (keycode == 58) then
+	    -- right
+	    scroll.value = scroll.value + scroll.size;
+	    scroll.set_dirty();
+	end
+	if scroll.value > scroll.max then
+	    scroll.value = scroll.max;
+	end 
+	if scroll.value < scroll.min then
+	    scroll.value = scroll.min;
+	end
+	
+    end
+    setmetatable(object, {
+	-- GET DATA
+	__index = function (table, key) 
+	    if key == "width" then
+		return scroll.width;
+	    else 
+		return scroll[key];
+	    end
+	end,
+	-- SET DATA
+	__newindex = function (table, key, value)
+	    --echo("setting "..key.."\n");
+	    if key == "value" then
+		scroll.value = value;
+		scroll.on_draw();
+	    elseif key == "parent" then
+		scroll.parent = value;
+		scroll.width = 24;
+		scroll.height = 20;
+		--scroll.backcolor = getvar("colors", "widget-backcolor"); --makecol(255, 255, 255);
+		--scroll.forecolor = getvar("colors", "widget-forecolor") --makecol(255, 255, 255);
+		
+		scroll.min = 0;
+		scroll.max = 100;
+		scroll.size = 10;
+		scroll.value = 1;
+		scroll.last_value = 1;
+		
+		if (scroll.vertical) then
+		    scroll.top = scroll.parent.margin_top;
+		    scroll.left = scroll.parent.width - scroll.width - scroll.parent.margin_right;
+		    scroll.height = scroll.parent.height - scroll.top - scroll.parent.margin_bottom;
+		end
+
+		scroll.on_draw();
+		scroll.z = 9999;
+		scroll.visible = 1;
+		
+	    else
+		scroll[key] = value;
+	    end
+	end	
+    }
+    );
+
+        
+    return object;
+end
+
+container = {};
+function container:new()
+    local the_object = {};
+    local daters = {};
+    div = daters;
+    div.top = 0;
+    div.left = 0;
+    div.width = 0;
+    div.height = 0;
+    div.last_top = 0;
+    div.last_left = 0;
+    div.name = "";
+    div.children = {};
+    div.child_count = 0;
+
+    
+    setmetatable(the_object, {
+	-- GET DATA
+	__index = function (table, key) 
+	    if key == "width" then
+		return daters.surface.width;
+	    else 
+		return div[key];
+	    end
+	end,
+	-- SET DATA
+	__newindex = function (table, key, value)
+	    if key == "width" then
+		div.width = value;
+	    else
+		div[key] = value;
+	    end
+	end	
+    }
+    );
+    
+    div.add_child = function(child)
+	echo("\n\nADD CHILD\n");
+	echo("child.name = ".. child.name .."\n");
+	echo("my.name = ".. div.name .."\n");
+        div.children[div.child_count] = child;
+	div.child_count = div.child_count + 1;	
+    end
+    
+    div.arrange_children = function()
+	echo("arranging ".. div.name .."\n");
+	o_y = 0;
+	o_x = 0;
+	div = daters.surface;
+	div.last_z = div.z;
+	div.last_top = div.margin_top;
+	div.last_left = div.margin_left;
+	div.last_bottom = div.height - div.margin_bottom;
+	div.last_right = div.width - div.margin_right;
+	for key, object in pairs(div.children) do
+	    echo("child: "..key .."\n");
+	    echo("my width: ".. div.width .."\n");
+	    echo("\n");
+
+	    if object.height == 0 then
+		if object.height_percent ~= 0 then
+		    object.height = object.height_percent * (div.height - div.margin_top - div.margin_bottom);
+		    div.last_top = 0;
+		end
+	    end
+	    if object.width == 0 then
+		if object.width_percent ~= 0 then
+		    object.width = object.width_percent * (div.width - div.margin_left - div.margin_right);
+		    div.last_left = 0;
+		end
+	    end
+
+	    if object.top == 0 then
+		object.top = o_y + div.last_top;
+		div.last_top = div.last_top + object.height;
+	    end
+	    if object.left == 0 then
+		object.left = o_x + div.last_left;
+		div.last_left = div.last_left + object.width;
+	    end
+	    if type(object.set_dirty) == 'function' then
+		---object.z = 9999;		
+		object.set_dirty();
+		echo("object drawing ".. object.name .."\n");
+		
+		--object.on_draw();
+
+	    end
+	    object.z = div.last_z;
+	    div.last_z = div.last_z + 1;
+	    print(object.top, object.left, object.width, object.height, object.z,  "\n");
+	end
+	echo("done arranging ".. div.name .."\n");
+    end
+    
+    div.on_resize = function()
+
+	if type(div.parent.arrange_children) == 'function' then
+	    div.parent.arrange_children();
+	else
+	    if div.width == 0 then
+		if div.height == 0 then
+		    div.width = div.parent.width - div.parent.margin_left - div.parent.margin_right;	
+		    div.height = div.parent.height - div.parent.margin_top - div.parent.margin_bottom;
+		end
+	    end
+	    if div.left == 0 then
+		if div.top == 0 then
+		    div.left = div.parent.margin_left;
+		    div.top = div.parent.margin_top;
+		end
+	    end
+	end
+    end
+        
+    return the_object;
+end
+
+--[[
+icon = {};
+function icon:new()
+    local object = {};
+    local daters = {};
+    
+    daters.surface = surface:new();
+    daters.surface.width = 80;
+    daters.surface.height = 96;
+    daters.surface.caption = "Icon";
+    if (daters.surface.font) then
+	daters.surface.caption_width = daters.surface.text_length(value);
+    end
+    daters.surface.backcolor = makecol(255, 0, 255);
+    daters.surface.transparent = 1;
+    daters.surface.clear();
+    
+    daters.icon = surface:new();
+    daters.icon.width = 32;
+    daters.icon.height = 32;
+    daters.icon.parent = daters.surface;
+    daters.icon.noevents = 1;
+    daters.icon.left = (daters.surface.width / 2) - 16;
+    daters.last_click = timer();	
+    
+    
+    daters.surface.on_draw = function () 
+	if (daters.surface.font) then
+	    x = (daters.surface.width / 2) - (daters.surface.caption_width / 2);
+	    if (daters.surface.caption_width > daters.surface.width) then
+		surface_print_wordwrap(0, 32, daters.surface.surface, daters.surface.caption, 0);
+	    else
+		daters.surface.print(x, 32, daters.surface.caption);
+	    end
+	    
+	end
+    end
+    
+    daters.surface.on_mouse_down = function(button, x, y) 
+    
+	if (daters.dragging ~= 1) then
+	    daters.drag_x = x - daters.surface.left;
+	    daters.drag_y = y - daters.surface.top;
+	    daters.dragging = 1;
+	end
+	daters.surface.left = x - daters.drag_x;
+	daters.surface.top = y - daters.drag_y;
+	daters.surface.parent.set_dirty();
+	render(daters.surface.parent.surface);
+    end
+    
+    daters.surface.on_mouse_up = function(button, x, y)
+	daters.dragging = 0;
+	if (timer() - daters.last_click < .25) then
+	    if (type(daters.surface.on_mouse_doubleclick) == "function") then
+		daters.surface.on_mouse_doubleclick(button, x, y);
+	    end
+	end
+	echo(timer() - daters.last_click.."\n");
+	daters.last_click = timer();	
+	
+    end
+    
+    
+    setmetatable(object, {
+	-- GET DATA
+	__index = function (table, key) 
+	    if key == "width" then
+		return daters.surface.width;
+	    else 
+		return daters.surface[key];
+	    end
+	end,
+	-- SET DATA
+	__newindex = function (table, key, value)
+	    if key == "width" then		
+		daters.surface.width = value;
+	    elseif key == "height" then
+		daters.surface.height = value;
+	    elseif key == "caption" then
+		daters.surface.caption = value;
+		daters.surface.caption_width = daters.surface.text_length(value);
+		daters.surface.on_draw();
+	    elseif key == "gif" then
+		daters.icon.gif = value;
+	    else
+		daters.surface[key] = value;
+	    end
+	end	
+    }
+    );
+
+    return object;
+end
+]]
+
+iconbox = {};
+function iconbox:new()
+    local object = {};
+    local daters = {};
+    daters.surface = surface:new();
+    daters.surface.width = 60;
+    daters.surface.height = 20;
+    daters.surface.backcolor = makecol(255, 255, 255);
+    daters.icons = {};
+    daters.surface.clear();
+    daters.surface.arrange_vertical = 1;
+    daters.surface.arrange_auto = 1;
+    daters.surface.icon_width = 128;
+    daters.surface.icon_height = 96;
+    daters.surface.icon_count = 0;
+    daters.last_index = 0;
+    daters.last_click = timer();
+    daters.dragging = 0;
+    daters.surface.scroll_position = 0;
+    daters.surface.scroll_min = 0;    
+    daters.surface.scroll_max = 0;    
+    daters.surface.images = {};
+    
+    daters.get_icon_from_xy = function (x, y)
+
+	if (daters.surface.arrange_vertical ~= 0) then
+	    o_x = 0;
+	    o_y = 0 - daters.surface.scroll_position;
+	else
+	    o_x = 0;
+	    o_y = 0 - daters.surface.scroll_position;
+	end
+	x = o_x + x - daters.surface.left;
+	y = o_y + y - daters.surface.top;
+
+	for index, icon in pairs(daters.icons) do 
+	    if (x > icon.left) then
+		if (x < icon.left + daters.surface.icon_width) then
+		    if (y > icon.top) then
+			if (y < icon.top + daters.surface.icon_height) then
+			    echo("returning "..index.."\n");
+			    return index;
+			end
+		    end
+		end
+	    end
+	end
+	return 0;
+    end
+    
+    daters.surface.on_redraw = function () 
+	start = timer();
+	if (daters.surface.arrange_vertical ~= 0) then
+	    o_x = 0;
+	    o_y = daters.surface.scroll_position;
+	else
+	    o_x = 0;
+	    o_y = daters.surface.scroll_position;
+	end
+		
+	--echo(daters.surface.dirty.."\n");	
+	daters.surface.clear();
+	s_h = daters.surface.height;
+	for index, icon in pairs(daters.icons) do 
+	    if (icon.top + o_y + daters.surface.icon_height > 0) then
+	    if (daters.surface.font) then
+		caption_width = daters.surface.text_length(icon.caption);
+		x = 0; --(daters.surface.icon_width * .5) - (caption_width * .5);
+		--x = caption_width * .5;
+		--echo("x is "..x.."\n");
+		if (caption_width > daters.surface.icon_width) then
+		    --echo("wordwrapping ".. icon.caption .. ", ".. icon.left .. "\n");
+		    
+		    surface_print_wordwrap(o_x + icon.left, o_y + icon.top + 32, daters.surface.icon_width, daters.surface.icon_height - 32, daters.surface.surface, icon.caption, 0);
+		    --surface_print_wordwrap(o_x + icon.left, o_y + icon.top + 32, daters.surface.surface, icon.caption, 0);	    
+		else
+		    daters.surface.print(o_x + icon.left + x, o_y + icon.top + 32, icon.caption);
+		end
+	    end
+	    --daters.surface.rect(0, 0, 20, 20); --icon.left, icon.top, icon.left + icon.width, icon.top + icon.heigh
+	    --surface_blit(icon.surface, daters.surface.surface, 0, 0, icon.left + ((daters.surface.icon_width / 2) - (16)), icon.top, 32, 32);
+	    surface_transparent_blit(icon.surface, daters.surface.surface, o_x + icon.left + ((daters.surface.icon_width / 2) - (16)), o_y + icon.top);
+	    end
+	end
+	--daters.surface.dirty = 1;
+	--echo(timer() - start);
+	--echo("\n");
+    end
+    
+    daters.on_icon_activate = function (index)
+	if (type(daters.surface.on_icon_activate) == "function") then
+	    daters.surface.on_icon_activate(daters.icons[index]);
+	end	
+	if (type(daters.icons[index].callback) == "function") then
+	    daters.icons[index].callback(daters.icons[index].data);
+	end
+    end
+    
+    daters.surface.on_mouse_up = function (button, x, y)
+	index = daters.get_icon_from_xy(x, y);
+	if (index == daters.last_index) then
+	    if (timer() - daters.last_click < .25) then
+		if (index > 0) then
+		    daters.on_icon_activate(index);
+		end
+	    end
+	end
+	daters.last_index = index;
+	daters.last_click = timer();
+	daters.dragging = 0;
+    end
+
+    daters.surface.on_mouse_down = function (button, x, y)
+	--[[if (daters.dragging == 0) then
+	    index = daters.get_icon_from_xy(x, y);
+	    --daters.icons[index].dragging = 1;
+	    daters.dragging = index;
+	    echo("dragging "..index.."\n");
+	else
+	    daters.icons[daters.dragging].left = x;
+	    daters.icons[daters.dragging].top = y;
+	    daters.surface.set_dirty();
+	end]]
+	
+    end
+    
+        
+    setmetatable(object, {
+	-- GET DATA
+	__index = function (table, key) 
+	    if key == "width" then
+		return daters.surface.width;
+	    elseif key == "icons" then
+		return daters.icons;
+	    else 
+		return daters.surface[key];
+	    end
+	end,
+	-- SET DATA
+	__newindex = function (table, key, value)
+	    if key == "width" then
+		daters.surface.width = value;
+		daters.surface.clear();
+	    elseif key == "height" then
+		daters.surface.height = value;
+		daters.surface.clear();
+	    else
+		daters.surface[key] = value;
+	    end
+	    
+	end	
+    }
+    );
+--[[
+    daters.surface.on_keypress = function (keycode, keyval)
+	--echo("key pressed!".. keyval .."\n");
+	set_surface_dirty(daters.surface.surface);	
+	if (keyval == 13) then
+	    if (type(daters.surface.on_click) == 'function') then
+		daters.surface.on_click();
+	    end
+	elseif (keyval == 9) then
+	    if (type(daters.surface.on_tab) == 'function') then
+		daters.surface.on_tab();
+	    end
+	elseif (keyval == 27) then
+	    if (type(daters.surface.on_escape) == 'function') then
+		daters.surface.on_escape();
+	    end	    
+	end
+    end
+]]
+
+    daters.surface.arrange_icons = function()
+	o_x = 6;
+	o_y = 6;
+	x = 0;
+	y = 0;
+	for index, icon in pairs(daters.icons) do 
+	    if (daters.surface.arrange_vertical ~= 0) then		
+		icon.top = o_y + y;
+		icon.left = o_x + x;
+		y = y + daters.surface.icon_height;
+		daters.surface.scroll_max = y;
+	    else
+		icon.top = o_y + y;
+		icon.left = o_x + x;
+		if (x + (daters.surface.icon_width * 2) > daters.surface.width) then
+		    x = 0;
+		    y = y + daters.surface.icon_height;
+		else 
+		    x = x + daters.surface.icon_width;
+		end
+		daters.surface.scroll_max = y;
+	    end
+	end
+	daters.surface.set_dirty();
+    end
+    
+    daters.surface.remove_icon = function(index)
+	if (daters.surface.icon_count > 0) then
+	    table.remove(daters.icons, index);
+	end
+	daters.surface.icon_count = daters.surface.icon_count - 1;
+	if (daters.surface.icon_count < 0) then
+	    daters.surface.icon_count = 0;
+	end
+    end
+    
+    daters.surface.clear_icons = function()
+	daters.icons = {};
+	daters.surface.icon_count = 0;
+    end
+    
+    daters.surface.add_icon = function (caption, image, callback, data)
+	echo("adding "..tostring(caption));
+	
+	icon = {};
+	icon.top = 0;
+	icon.left = 0;
+	icon.surface = image.surface;
+	icon.caption = caption;
+	icon.data = data;
+	icon.callback = callback;
+	
+	table.insert(daters.icons, icon);
+	
+	if (daters.surface.arrange_auto == 1) then
+	    daters.surface.arrange_icons();
+	end	
+	daters.surface.icon_count = daters.surface.icon_count + 1;
+	echo("done\n");
+    end
+        
+    return object;
+end
+
+
+listbox = {};
+function listbox:new()
+    local object = {};
+    local daters = {};
+    daters.surface = surface:new();
+    daters.surface.width = 60;
+    daters.surface.height = 20;
+    daters.surface.backcolor = makecol(255, 255, 255);
+    daters.icons = {};
+    daters.surface.clear();
+    daters.surface.arrange_vertical = 1;
+    daters.surface.arrange_auto = 1;
+    daters.surface.icon_width = 128;
+    daters.surface.icon_height = 32;
+    daters.surface.icon_count = 0;
+    daters.last_index = 0;
+    daters.last_click = timer();
+    daters.dragging = 0;
+    daters.surface.scroll_position = 0;
+    daters.surface.scroll_min = 0;    
+    daters.surface.scroll_max = 0;    
+    daters.surface.images = {};
+    daters.surface.selected = -1;
+    daters.surface.selectedcolor = makecol(200,200,255);
+    daters.surface.unselectedcolor = makecol(255, 255, 255);
+    
+    vscroll = scrollbar:new();
+--    vscroll.parent = daters.surface;
+    vscroll.visible = 0;
+    vscroll.max = daters.surface.scroll_max;
+    vscroll.size = 20;
+    vscroll.value = 0;
+    
+    vscroll.on_change = function ()
+	daters.surface.scroll_position = 0 - vscroll.value;
+    end
+    
+    vscroll.on_mouse_up = function()
+	daters.surface.set_dirty();
+	daters.surface.on_redraw();
+    end
+    
+    daters.get_icon_from_xy = function (x, y)
+
+	if (daters.surface.arrange_vertical ~= 0) then
+	    o_x = 0;
+	    o_y = 0 - daters.surface.scroll_position;
+	else
+	    o_x = 0;
+	    o_y = 0 - daters.surface.scroll_position;
+	end
+	x = o_x + x - daters.surface.left;
+	y = o_y + y - daters.surface.top;
+
+	for index, icon in pairs(daters.icons) do 
+	    if (x > icon.left) then
+		if (x < daters.surface.width) then
+		    if (y > icon.top) then
+			if (y < icon.top + icon.height) then
+			    echo("returning "..index.."\n");
+			    return index;
+			end
+		    end
+		end
+	    end
+	end
+	return 0;
+    end
+    
+    daters.surface.on_redraw = function () 
+	start = timer();
+	o_x = 0;
+	o_y = daters.surface.scroll_position;
+		
+	--echo(daters.surface.dirty.."\n");	
+	daters.surface.clear();
+	s_h = daters.surface.height;
+	--if (type(icon.surface) == "number") then
+	if (icon.surface > 0) then
+	    for index, icon in pairs(daters.icons) do 
+		if (icon.top + o_y + daters.surface.icon_height > 0) then
+		    if (index == daters.surface.selected) then
+			daters.surface.forecolor = daters.surface.selectedcolor;
+			daters.surface.rect_fill(0, o_y + icon.top, o_x + icon.left + x + daters.surface.width, o_y + icon.top + 32); 
+			daters.surface.forecolor = daters.surface.unselectedcolor;
+		    end
+		
+		    if (daters.surface.font) then
+			caption_width = daters.surface.text_length(icon.caption);
+			x = 32; 
+			daters.surface.print(o_x + icon.left + x, o_y + icon.top + 16, icon.caption);
+		    end
+		    surface_transparent_blit(icon.surface, daters.surface.surface, o_x + icon.left, o_y + icon.top);
+		end
+	    end
+	else
+	    for index, icon in pairs(daters.icons) do 
+		if (icon.top + o_y + daters.surface.icon_height > 0) then
+		    if (index == daters.surface.selected) then
+			daters.surface.forecolor = daters.surface.selectedcolor;
+			daters.surface.rect_fill(0, o_y + icon.top, o_x + icon.left + x + daters.surface.width, o_y + icon.top + daters.surface.text_height()); 
+			daters.surface.forecolor = daters.surface.unselectedcolor;
+		    end
+		
+		    if (daters.surface.font) then		    
+	    		caption_width = daters.surface.text_length(icon.caption);			
+			x = 0; 
+			daters.surface.print(o_x + icon.left + x, o_y + icon.top, icon.caption);
+		    end
+		    --surface_transparent_blit(icon.surface, daters.surface.surface, o_x + icon.left + ((daters.surface.icon_width / 2) - (16)), o_y + icon.top);
+		end
+	    end	    
+	end
+    end
+    
+    daters.on_icon_activate = function (index)
+	if (type(daters.surface.on_icon_activate) == "function") then
+	    daters.surface.on_icon_activate(index, daters.icons[index]);
+	end	
+	if (type(daters.icons[index].callback) == "function") then
+	    daters.icons[index].callback(daters.icons[index].data);
+	end
+    end
+    
+    daters.on_icon_select = function(index)
+	daters.surface.selected = index;
+	if (type(daters.surface.on_icon_select) == "function") then
+	    daters.surface.on_icon_select(index, daters.icons[index]);
+	end		
+	
+	daters.surface.on_redraw();
+	daters.surface.set_dirty();
+    end
+    
+    daters.surface.on_mouse_up = function (button, x, y)
+	index = daters.get_icon_from_xy(x, y);
+	if (index == daters.last_index) then
+	    if (timer() - daters.last_click < .25) then
+		if (index > 0) then
+		    daters.on_icon_activate(index);
+		end
+	    end
+	end
+	daters.on_icon_select(index);
+		
+	daters.last_index = index;
+	daters.last_click = timer();
+	daters.dragging = 0;
+    end
+
+    daters.surface.on_mouse_down = function (button, x, y)
+	--[[if (daters.dragging == 0) then
+	    index = daters.get_icon_from_xy(x, y);
+	    --daters.icons[index].dragging = 1;
+	    daters.dragging = index;
+	    echo("dragging "..index.."\n");
+	else
+	    daters.icons[daters.dragging].left = x;
+	    daters.icons[daters.dragging].top = y;
+	    daters.surface.set_dirty();
+	end]]
+	
+    end
+    
+        
+    setmetatable(object, {
+	-- GET DATA
+	__index = function (table, key) 
+	    if key == "width" then
+		return daters.surface.width;
+	    elseif key == "icons" then
+		return daters.icons;
+	    else 
+		return daters.surface[key];
+	    end
+	end,
+	-- SET DATA
+	__newindex = function (table, key, value)
+	    if key == "width" then
+		daters.surface.width = value;
+		vscroll.left = daters.surface.width - vscroll.width;
+		daters.surface.clear();
+	    elseif key == "height" then
+		daters.surface.height = value;
+		vscroll.height = value;
+		daters.surface.clear();
+	    elseif key == "parent" then
+		daters.surface.parent = value;
+		vscroll.parent = value;
+		vscroll.left = daters.surface.left + daters.surface.width;
+		vscroll.top = daters.surface.top + vscroll.top;
+		daters.surface.clear();
+
+	    else
+		daters.surface[key] = value;
+	    end
+	    
+	end	
+    }
+    );
+--[[
+    daters.surface.on_keypress = function (keycode, keyval)
+	--echo("key pressed!".. keyval .."\n");
+	set_surface_dirty(daters.surface.surface);	
+	if (keyval == 13) then
+	    if (type(daters.surface.on_click) == 'function') then
+		daters.surface.on_click();
+	    end
+	elseif (keyval == 9) then
+	    if (type(daters.surface.on_tab) == 'function') then
+		daters.surface.on_tab();
+	    end
+	elseif (keyval == 27) then
+	    if (type(daters.surface.on_escape) == 'function') then
+		daters.surface.on_escape();
+	    end	    
+	end
+    end
+]]
+
+    daters.surface.arrange_icons = function()
+	o_x = 6;
+	o_y = 6;
+	x = 0;
+	y = 0;
+	for index, icon in pairs(daters.icons) do 
+	    icon.top = o_y + y;
+	    icon.left = o_x + x;
+	    if (icon.image) then
+		icon.height = daters.surface.icon_height;
+		y = y + icon.height;
+	    else 
+		if (daters.surface.font) then
+		    icon.height = daters.surface.text_height();
+		    y = y + icon.height;
+		end
+	    end
+	    daters.surface.scroll_max = y;
+	end
+	vscroll.max = daters.surface.scroll_max;
+	if (vscroll.max > daters.surface.height) then
+	    vscroll.visible = 1;
+	else
+	    vscroll.visible = 0;
+	end
+	daters.surface.set_dirty();
+	vscroll.left = daters.surface.left + daters.surface.width;
+	vscroll.top = daters.surface.top;
+	
+    end
+    
+    daters.surface.remove_icon = function(index)
+	if (daters.surface.icon_count > 0) then
+	    table.remove(daters.icons, index);
+	end
+	daters.surface.icon_count = daters.surface.icon_count - 1;
+	if (daters.surface.icon_count < 0) then
+	    daters.surface.icon_count = 0;
+	end
+    end
+    
+    daters.surface.clear_icons = function()
+	daters.icons = {};
+	daters.surface.icon_count = 0;
+    end
+    
+    daters.surface.add_icon = function (caption, image, callback, data)
+	echo("adding "..tostring(caption));
+	
+	icon = {};
+	icon.top = 0;
+	icon.left = 0;
+	if (type(image) ~= "nil") then
+	    icon.surface = image.surface;
+	else 
+	    icon.surface = 0;
+	end
+	icon.caption = caption;
+	icon.data = data;
+	icon.callback = callback;
+	
+	table.insert(daters.icons, icon);
+	
+	if (daters.surface.arrange_auto == 1) then
+	    daters.surface.arrange_icons();
+	end	
+	daters.surface.icon_count = daters.surface.icon_count + 1;
+	echo("done\n");
+    end
+        
+    return object;
+end
+
+
+textbox = inputbox;
+password = inputbox;
+--listbox = inputbox;
+textarea = inputbox;
+

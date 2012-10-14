@@ -1,0 +1,2654 @@
+Graphics modes supported:
+GFX_AUTODETECT = 0
+GFX_AUTODETECT_FULLSCREEN = 1
+GFX_AUTODETECT_WINDOWED = 2
+
+Adding to the render loop: 2
+render_loop(2)
+Focus: 9
+
+exit	=
+function: 0x810bc30
+
+filemtime	=
+function: 0x810c3a8
+
+surface_get_text_length	=
+function: 0x8114050
+
+get_surface_forecolor	=
+function: 0x8113670
+
+vt_inject	=
+function: 0x8110488
+
+set_render_mode	=
+function: 0x8113d70
+
+set_surface_parent	=
+function: 0x81134c8
+
+set_surface_forecolor	=
+function: 0x8113598
+
+next_focus	=
+function: 0x810d230
+
+set_surface_backcolor	=
+function: 0x8113550
+
+download_file	=
+function: 0x80fb470
+
+font2	:
+
+get_camera_x	=
+function: 0x81110e8
+
+set_matrix_rotation	=
+function: 0x810ce40
+
+get_surface_backcolor	=
+function: 0x8113628
+
+results	:
+  
+records	:
+    
+1	:
+      
+id	=
+1281471084
+      
+relevance	=
+
+    
+2	:
+      
+id	=
+1281470775
+      
+relevance	=
+
+    
+3	:
+      
+id	=
+1281468107
+      
+relevance	=
+
+    
+4	:
+      
+id	=
+1281467217
+      
+relevance	=
+
+    
+5	:
+      
+id	=
+1281461631
+      
+relevance	=
+
+    
+6	:
+      
+id	=
+1281459923
+      
+relevance	=
+
+    
+7	:
+      
+id	=
+1281459148
+      
+relevance	=
+
+    
+8	:
+      
+id	=
+1281457817
+      
+relevance	=
+
+    
+9	:
+      
+id	=
+1281456886
+      
+relevance	=
+
+    
+10	:
+      
+id	=
+1281456197
+      
+relevance	=
+
+  
+columns	:
+  
+request	:
+    
+get_id	=
+
+    
+max_results	=
+10
+    
+select	=
+*
+    
+dataset	=
+inventory
+  
+record_count	=
+10
+  
+records_scanned	=
+0
+  
+run_time	=
+1.96330809593
+
+create_matrix	=
+function: 0x810cdc0
+
+data	=
+results = {
+	columns = {
+		id,
+		relevance,
+	},
+	['record_count'] = "10",
+	['records_scanned'] = "0",
+	['run_time'] = "1.96330809593",
+	records = {
+		{
+			['id'] = "1281471084",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281470775",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281468107",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281467217",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281461631",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281459923",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281459148",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281457817",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281456886",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281456197",
+			['relevance'] = "",
+		},
+	},
+	request = {
+		['select'] = "*",
+		['dataset'] = "inventory",
+		['get_id'] = "",
+		['max_results'] = "10",
+	},
+}
+
+
+get_surface_alpha	=
+function: 0x8113780
+
+set_camera_x	=
+function: 0x81110a8
+
+set_surface_on_lost_focus	=
+function: 0x8113a28
+
+font1	:
+
+db	:
+
+set_matrix_x	=
+function: 0x810ce80
+
+run_script_reuse	=
+function: 0x810b328
+
+get_render_mode	=
+function: 0x8113db0
+
+body_get_rotation	=
+function: 0x8110f70
+
+get_matrix_x	=
+function: 0x810cec0
+
+set_surface_on_draw	=
+function: 0x8113998
+
+screen_width	=
+function: 0x810d748
+
+get_surface_width	=
+function: 0x810d8c8
+
+set_surface_dirty	=
+function: 0x8113918
+
+get_surface_can_have_focus	=
+function: 0x8113448
+
+print	=
+function: 0x80f9c20
+
+set_surface_height	=
+function: 0x810d888
+
+set_surface_width	=
+function: 0x810d908
+
+vt_create	=
+function: 0x810ed98
+
+get_surface_noevents	=
+function: 0x81133b8
+
+vt_bgcolor	=
+function: 0x810fe90
+
+mouse_lr	=
+function: 0x810d698
+
+get_surface_dirty	=
+function: 0x8113958
+
+collectgarbage	=
+function: 0x810a690
+
+get_camera_pitch	=
+function: 0x81112e8
+
+create_worldspace	=
+function: 0x8110d38
+
+set_camera_pitch	=
+function: 0x81112a8
+
+resolv	=
+function: 0x810dd60
+
+destroy_worldspace	=
+function: 0x8110d78
+
+reinit	=
+function: 0x810be38
+
+pcall	=
+function: 0x810a618
+
+run_script_thread_reuse	=
+function: 0x810b580
+
+get_rgb	=
+function: 0x810d480
+
+get_surface_by_xy	=
+function: 0x8113df0
+
+get_surface_transparent	=
+function: 0x81137c8
+
+get_camera_bitmap	=
+function: 0x8111068
+
+msend	=
+function: 0x810c248
+
+set_surface_always_on_top	=
+function: 0x8113ec8
+
+mod_isloaded	=
+function: 0x81091e0
+
+mod_unload	=
+function: 0x8105748
+
+set_surface_on_mouse_click	=
+function: 0x8113b48
+
+tick	=
+function: 0x810d6d0
+
+getfenv	=
+function: 0x80eef28
+
+model_add_face	=
+function: 0x81113e8
+
+y	=
+3
+
+io	:
+  
+popen	=
+function: 0x80feea8
+  
+write	=
+function: 0x80fef48
+  
+close	=
+function: 0x8103ff0
+  
+flush	=
+function: 0x8103f58
+  
+open	=
+function: 0x8103f98
+  
+output	=
+function: 0x8103f38
+  
+type	=
+function: 0x80fef28
+  
+read	=
+function: 0x80feec8
+  
+stderr	=
+file (0x80fee70)
+  
+stdin	=
+file (0x80fedb0)
+  
+input	=
+function: 0x81040e8
+  
+stdout	=
+file (0x80fee10)
+  
+lines	=
+function: 0x8103fd0
+  
+tmpfile	=
+function: 0x80fef08
+
+set_camera_heading	=
+function: 0x8111228
+
+set_surface_on_keypress	=
+function: 0x8113a70
+
+surface_get_pixel	=
+function: 0x810d448
+
+get_surface_bitmap	=
+function: 0x8113bc8
+
+file_exists	=
+function: 0x81035f8
+
+surface_has_focus	=
+function: 0x810d270
+
+client_interface	:
+  
+new	=
+function: 0x8124740
+
+term	:
+
+get_camera_heading	=
+function: 0x8111268
+
+surface_rect_fill	=
+function: 0x810d540
+
+include	=
+function: 0x810b768
+
+vt_dirty	=
+function: 0x8104f30
+
+run_stringthread	=
+function: 0x810ed60
+
+chmod	=
+function: 0x80fe580
+
+get_surface_screen_y	=
+function: 0x8113e80
+
+get_camera_y	=
+function: 0x8111168
+
+destroy_surface	=
+function: 0x810d808
+
+set_camera_y	=
+function: 0x8111128
+
+set_debug_mode	=
+function: 0x8110cf8
+
+render_model_gouraud	=
+function: 0x810cd38
+
+get_surface_x	=
+function: 0x810d948
+
+xpcall	=
+function: 0x810a650
+
+_VERSION	=
+Lua 5.0.3
+
+listen	=
+function: 0x810e3d0
+
+create_model	=
+function: 0x81113a8
+
+__pow	=
+function: 0x81038a8
+
+set_surface_z	=
+function: 0x8113298
+
+require	=
+function: 0x80da5d0
+
+vt_fgcolor	=
+function: 0x810fe50
+
+next	=
+function: 0x80e7280
+
+surface_transparent_blit	=
+function: 0x810d408
+
+get_surface_z	=
+function: 0x81131d8
+
+rawequal	=
+function: 0x80f9118
+
+timer	=
+function: 0x810d5b8
+
+newproxy	=
+function: 0x80da628
+
+label	:
+  
+new	=
+function: 0x811b8c8
+
+get_matrix_y	=
+function: 0x810cf40
+
+connect	=
+function: 0x810e070
+
+yield	=
+function: 0x810ba38
+
+memory_usage	=
+function: 0x8110b98
+
+application	:
+  
+new	=
+function: 0x81153c8
+
+setfenv	=
+function: 0x80eef60
+
+get_surface_rotation	=
+function: 0x8113740
+
+body_set_rotation	=
+function: 0x8110f30
+
+vt_convscan	=
+function: 0x810fc98
+
+create_body	=
+function: 0x8110e30
+
+surface_line	=
+function: 0x810d4c0
+
+readkey	=
+function: 0x810d628
+
+setvar	=
+function: 0x80fe598
+
+mod_load	=
+function: 0x8105830
+
+vt_update	=
+function: 0x8104c10
+
+pairs	=
+function: 0x80f9be8
+
+assert	=
+function: 0x80f90a8
+
+set_focus	=
+function: 0x810d1f8
+
+gradient	=
+function: 0x8113c80
+
+yoffset	=
+2
+
+get_surface_tab_index	=
+function: 0x8113328
+
+get_surface_screen_x	=
+function: 0x8113e38
+
+_LOADED	:
+
+destroy_body	=
+function: 0x8110e70
+
+thread	=
+id-1077003408
+
+echo	=
+function: 0x80fb4a8
+
+get_matrix_r_y	=
+function: 0x810d0c0
+
+get_thread_priority	=
+function: 0x8114118
+
+coroutine	:
+  
+resume	=
+function: 0x810ae88
+  
+yield	=
+function: 0x80da6e8
+  
+status	=
+function: 0x810ae30
+  
+wrap	=
+function: 0x810adf8
+  
+create	=
+function: 0x80da6b0
+
+run_script	=
+function: 0x81098f0
+
+set_thread_priority	=
+function: 0x8114158
+
+vt_forkpty	=
+function: 0x80fea18
+
+loadstring	=
+function: 0x80da598
+
+plane_set_geom	=
+function: 0x8110df8
+
+set_surface_tab_index	=
+function: 0x81132e0
+
+exec	=
+function: 0x810c718
+
+surface_clear	=
+function: 0x810d338
+
+string	:
+  
+sub	=
+function: 0x8102a48
+  
+gfind	=
+function: 0x80efd90
+  
+rep	=
+function: 0x8102a78
+  
+gsub	=
+function: 0x80efa38
+  
+char	=
+function: 0x8102b68
+  
+dump	=
+function: 0x80efd20
+  
+find	=
+function: 0x80efd58
+  
+upper	=
+function: 0x8102b30
+  
+len	=
+function: 0x8102a18
+  
+format	=
+function: 0x80efb20
+  
+byte	=
+function: 0x8102ab0
+  
+lower	=
+function: 0x8102af8
+
+scroll	:
+
+sendall	=
+function: 0x810c280
+
+table	:
+  
+setn	=
+function: 0x80fc5d0
+  
+insert	=
+function: 0x80fc6b8
+  
+getn	=
+function: 0x80fc680
+  
+foreachi	=
+function: 0x80fc648
+  
+foreach	=
+function: 0x80fc598
+  
+sort	=
+function: 0x80fc608
+  
+remove	=
+function: 0x80fc6f0
+  
+concat	=
+function: 0x810ae70
+
+listbox	:
+  
+new	=
+function: 0x81284e8
+
+container	:
+  
+new	=
+function: 0x8115450
+
+set_surface_visible	=
+function: 0x8113808
+
+vt_write	=
+function: 0x81102b0
+
+get_camera_z	=
+function: 0x81111e8
+
+ipairs	=
+function: 0x80e72b8
+
+set_matrix_z	=
+function: 0x810cf80
+
+get_surface_visible	=
+function: 0x81136f8
+
+set_surface_on_mouse_down	=
+function: 0x8113ab8
+
+set_camera_z	=
+function: 0x81111a8
+
+initialize_video	=
+function: 0x8113d30
+
+create_camera	=
+function: 0x8110fe8
+
+set_model_offset	=
+function: 0x810cbf8
+
+set_surface_bitmap	=
+function: 0x8113b88
+
+set_model_face_data	=
+function: 0x810cc38
+
+surface_load_gif	=
+function: 0x8113fc0
+
+type	=
+function: 0x80f9cc8
+
+get_surface_y	=
+function: 0x810d988
+
+get_model_face_data	=
+function: 0x810cc78
+
+set_surface_y	=
+function: 0x8113258
+
+mouse_xy	=
+function: 0x810d660
+
+loadfile	=
+function: 0x810a700
+
+render	=
+function: 0x810d5f0
+
+openfile	=
+function: 0x810c758
+
+close	=
+function: 0x810e0b0
+
+reference	:
+  
+getvar	:
+    
+module	=
+core
+    
+arguments	=
+STRING table, STRING key
+    
+longdescription	=
+Retrieves data from the global data store, which is accessable by all scripts, threads, and modules.
+    
+description	=
+Returns the value of a key given by key from the table given by table.
+  
+openfile	:
+    
+module	=
+core
+    
+arguments	=
+STRING filename
+    
+longdescription	=
+
+    
+description	=
+Returns the contents of the file given by filename.
+  
+close	:
+    
+module	=
+core
+    
+arguments	=
+STRING handle
+    
+longdescription	=
+
+    
+description	=
+Closes the network connection given by handle.
+  
+mod_isloaded	:
+    
+module	=
+core
+    
+arguments	=
+STRING module_name
+    
+longdescription	=
+
+    
+description	=
+Tests to see if a module is loaded. Returns 1 if the given module is loaded, 0 if it is not.
+  
+mod_unload	:
+    
+module	=
+core
+    
+arguments	=
+STRING module_name
+    
+longdescription	=
+The use of this is discouraged as it can lead to program instability.
+    
+description	=
+Unloads the previously loaded module given by module_name.
+  
+listen	:
+    
+module	=
+core
+    
+arguments	=
+NUMBER port, STRING ip
+    
+longdescription	=
+Must provide a port to listen on. May provide an IP to listen on but this is optional. IP may be left blank to listen on all IPs. Returns a handle.
+    
+description	=
+Listens for incoming network connections.
+  
+setvar	:
+    
+module	=
+core
+    
+arguments	=
+STRING table, STRING key, STRING value
+    
+longdescription	=
+Modifies data in the global data store, which is accessable by all scripts, threads, and modules.
+    
+description	=
+Stores the key/value pair given by key and value respectively in the table given by table.
+  
+mod_load	:
+    
+module	=
+core
+    
+arguments	=
+STRING module_name
+    
+longdescription	=
+
+    
+description	=
+Loads a binary module into the current thread.
+  
+mod_loadthread	:
+    
+module	=
+core
+    
+arguments	=
+STRING module_name
+    
+longdescription	=
+Loading a module into a new thread allows it to perform long running tasks asynchronously.
+    
+description	=
+Loads a binary module into a new thread.
+  
+vt_create	:
+    
+module	=
+core
+    
+arguments	=
+
+    
+longdescription	=
+
+    
+description	=
+Returns a pointer to a new virtual terminal.
+  
+vt_bgcolor	:
+    
+module	=
+core
+    
+arguments	=
+VT *vt, int row, int col
+    
+longdescription	=
+
+    
+description	=
+Returns the background color attribute at the specified row and column of the virtual terminal.
+  
+exgen_install	:
+    
+module	=
+core
+    
+arguments	=
+
+    
+longdescription	=
+
+    
+description	=
+Attempt to install self.
+  
+accept	:
+    
+module	=
+core
+    
+arguments	=
+STRING handle
+    
+longdescription	=
+
+    
+description	=
+Accepts a connection given by handle.
+  
+vt_forsake_child	:
+    
+module	=
+core
+    
+arguments	=
+VT *vt
+    
+longdescription	=
+
+    
+description	=
+see man page
+  
+vt_cursor_col	:
+    
+module	=
+core
+    
+arguments	=
+VT *vt
+    
+longdescription	=
+
+    
+description	=
+Returns the current column of the cursor in the virtual terminal.
+  
+shutdown	:
+    
+module	=
+core
+    
+arguments	=
+
+    
+longdescription	=
+
+    
+description	=
+Unload all modules, terminate all running scripts, threads, and end the application.
+  
+include_string	:
+    
+module	=
+core
+    
+arguments	=
+STRING script
+    
+longdescription	=
+Useful for defining configuration files that can be loaded at run-time, for splitting a single script into multiple files, or for implementing your own Lua script libraries.
+    
+description	=
+Loads a Lua script into the current script.
+  
+inkey	:
+    
+module	=
+core
+    
+arguments	=
+
+    
+longdescription	=
+
+    
+description	=
+Returns the value of last key pressed by the user.
+  
+mod_update	:
+    
+module	=
+core
+    
+arguments	=
+
+    
+longdescription	=
+
+    
+description	=
+
+  
+fork	:
+    
+module	=
+core
+    
+arguments	=
+
+    
+longdescription	=
+
+    
+description	=
+See Unix fork()
+  
+vt_char	:
+    
+module	=
+core
+    
+arguments	=
+VT *vt, int row, int col
+    
+longdescription	=
+
+    
+description	=
+Returns the character at the specified row and column of the virtual terminal.
+  
+vt_keypress	:
+    
+module	=
+core
+    
+arguments	=
+VT *vt, int key
+    
+longdescription	=
+
+    
+description	=
+Sends keypress to the process running in the virtual terminal.
+  
+vt_inject	:
+    
+module	=
+core
+    
+arguments	=
+VT *vt, char *string
+    
+longdescription	=
+
+    
+description	=
+Sends string to the virtual terminal, bypassing any process that may be running in the virtual terminal.
+  
+connect	:
+    
+module	=
+core
+    
+arguments	=
+NUMBER port, STRING ip
+    
+longdescription	=
+
+    
+description	=
+Opens and returns a handle to a network connection.
+  
+quit	:
+    
+module	=
+core
+    
+arguments	=
+
+    
+longdescription	=
+
+    
+description	=
+Alias for shutdown.
+  
+vt_write	:
+    
+module	=
+core
+    
+arguments	=
+VT *vt, char *string
+    
+longdescription	=
+
+    
+description	=
+Sends string to the forked process running in the virtual terminal.
+  
+yield	:
+    
+module	=
+core
+    
+arguments	=
+
+    
+longdescription	=
+
+    
+description	=
+Explicitly force the current thread to yield its processor timeslice to the next thread.
+  
+vt_fgcolor	:
+    
+module	=
+core
+    
+arguments	=
+VT *vt, int row, int col
+    
+longdescription	=
+
+    
+description	=
+Returns the foreground color attribute at the specified row and column of the virtual terminal.
+  
+reinit	:
+    
+module	=
+core
+    
+arguments	=
+
+    
+longdescription	=
+When a module is loaded, all subsequently started scripts will be able to use an extended functionality offered by the function. Scripts started before the module was loaded however will not be able to use the functionality unless the script is reinitialized. Use reinit after loading a module to be able to use any new functions the module provides.
+    
+description	=
+Reinitialize the current Lua script.
+  
+vt_convscan	:
+    
+module	=
+core
+    
+arguments	=
+VT *vt, int scancode
+    
+longdescription	=
+Explantion/Example: Pressing the UP key is scancode 84. To send the UP key to the virtual terminal you use convscan to converty 84 to 256, which the virtual terminal recognizes as UP.
+    
+description	=
+Converts scancode to terminal code.
+  
+vt_cursor_row	:
+    
+module	=
+core
+    
+arguments	=
+VT *vt
+    
+longdescription	=
+
+    
+description	=
+Returns the current row of the cursor in the virtual terminal.
+  
+run_script	:
+    
+module	=
+core
+    
+arguments	=
+STRING script_file
+    
+longdescription	=
+Running a script in the current thread causes the calling script to halt until the child script exits.
+    
+description	=
+Loads and executes a Lua script given by script_file in the current thread.
+  
+include	:
+    
+module	=
+core
+    
+arguments	=
+STRING script_file
+    
+longdescription	=
+Useful for defining configuration files that can be loaded at run-time, for splitting a single script into multiple files, or for implementing your own Lua script libraries.
+    
+description	=
+Loads a Lua script into the current script.
+  
+savefile	:
+    
+module	=
+core
+    
+arguments	=
+STRING filename, STRING contents
+    
+longdescription	=
+
+    
+description	=
+Writes the value given by contents to the file given by filename.
+  
+help	:
+    
+module	=
+core
+    
+arguments	=
+STRING help_topic
+    
+longdescription	=
+
+    
+description	=
+Display help.
+  
+chmod	:
+    
+module	=
+core
+    
+arguments	=
+STRING filename, NUMBER mode
+    
+longdescription	=
+
+    
+description	=
+Changes the mode of the file given by filename to the mode given by mode.
+  
+vt_forkpty	:
+    
+module	=
+core
+    
+arguments	=
+VT *vt, char *cmd
+    
+longdescription	=
+
+    
+description	=
+Forks *cmd into the virtual terminal *vt.
+  
+vt_dirty	:
+    
+module	=
+core
+    
+arguments	=
+VT *vt
+    
+longdescription	=
+
+    
+description	=
+Returns TRUE if the virtual terminal has changed. Use this to tell if the virtual terminal needs to be rendered again.
+  
+vt_update	:
+    
+module	=
+core
+    
+arguments	=
+VT *vt
+    
+longdescription	=
+
+    
+description	=
+Updates the state of the virtual terminal.
+  
+exgen_update	:
+    
+module	=
+core
+    
+arguments	=
+
+    
+longdescription	=
+
+    
+description	=
+Check for a newer version of exgen then download and install newer version if it exists.
+  
+exit	:
+    
+module	=
+core
+    
+arguments	=
+
+    
+longdescription	=
+
+    
+description	=
+Alias for shutdown.
+  
+filemtime	:
+    
+module	=
+core
+    
+arguments	=
+STRING filename
+    
+longdescription	=
+
+    
+description	=
+Returns the modified time of the file given by filename. Time is formatted as a UNIX timestamp.
+  
+file_exists	:
+    
+module	=
+core
+    
+arguments	=
+STRING filename
+    
+longdescription	=
+
+    
+description	=
+Returns 1 if the file given by filename exists. Returns 0 if it does not.
+  
+echo	:
+    
+module	=
+core
+    
+arguments	=
+STRING text
+    
+longdescription	=
+
+    
+description	=
+Print text to the screen.
+  
+vt_clean	:
+    
+module	=
+core
+    
+arguments	=
+VT *vt
+    
+longdescription	=
+
+    
+description	=
+Resets the value of vt_dirty to FALSE. Use this after rendering the virtual terminal.
+  
+exec	:
+    
+module	=
+core
+    
+arguments	=
+STRING command
+    
+longdescription	=
+
+    
+description	=
+Execute a system command.
+  
+run_scriptthread	:
+    
+module	=
+core
+    
+arguments	=
+STRING script_file
+    
+longdescription	=
+Loading a script into a new thread allows it to perform long running tasks asynchronously, allowing the calling thread to continue before the child thread exits.
+    
+description	=
+Loads and executes a Lua script given by script_file in a new thread.
+  
+resolv	:
+    
+module	=
+core
+    
+arguments	=
+STRING hostname
+    
+longdescription	=
+
+    
+description	=
+Returns the IP address of the given hostname.
+
+vsync	=
+function: 0x810d708
+
+surface_print_wordwrap	=
+function: 0x810d2b8
+
+button	:
+  
+new	=
+function: 0x811f060
+
+mod_loadthread	=
+function: 0x8109080
+
+get_matrix_r_x	=
+function: 0x810d040
+
+get_model_face_count	=
+function: 0x810cbb8
+
+set_matrix_r_x	=
+function: 0x810d000
+
+vt	=
+userdata: 0x81d0078
+
+retval	=
+49
+
+vt_forsake_child	=
+function: 0x8104c70
+
+x	=
+3
+
+xoffset	=
+-5
+
+window1	:
+
+tprint	=
+function: 0x812a030
+
+terminal	:
+  
+new	=
+function: 0x812ad68
+
+window	:
+  
+new	=
+function: 0x811f9e8
+
+scrollbar	:
+  
+new	=
+function: 0x812db40
+
+inputbox	:
+  
+new	=
+function: 0x811ba50
+
+set_surface_on_got_focus	=
+function: 0x81139e0
+
+iconbox	:
+  
+new	=
+function: 0x8114478
+
+hidden	:
+  
+new	=
+function: 0x811f418
+
+getvar	=
+function: 0x80fe758
+
+set_surface_x_offset	=
+function: 0x81130c0
+
+surface	:
+  
+new	=
+function: 0x811da78
+
+_G	:
+  
+exit	=
+function: 0x810bc30
+  
+filemtime	=
+function: 0x810c3a8
+  
+surface_get_text_length	=
+function: 0x8114050
+  
+get_surface_forecolor	=
+function: 0x8113670
+  
+vt_inject	=
+function: 0x8110488
+  
+set_render_mode	=
+function: 0x8113d70
+  
+set_surface_parent	=
+function: 0x81134c8
+  
+set_surface_forecolor	=
+function: 0x8113598
+  
+next_focus	=
+function: 0x810d230
+  
+set_surface_backcolor	=
+function: 0x8113550
+  
+download_file	=
+function: 0x80fb470
+  
+font2	=
+table: 0x812ec98
+  
+get_camera_x	=
+function: 0x81110e8
+  
+set_matrix_rotation	=
+function: 0x810ce40
+  
+get_surface_backcolor	=
+function: 0x8113628
+  
+results	=
+table: 0x81ffe50
+  
+create_matrix	=
+function: 0x810cdc0
+  
+data	=
+results = {
+	columns = {
+		id,
+		relevance,
+	},
+	['record_count'] = "10",
+	['records_scanned'] = "0",
+	['run_time'] = "1.96330809593",
+	records = {
+		{
+			['id'] = "1281471084",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281470775",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281468107",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281467217",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281461631",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281459923",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281459148",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281457817",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281456886",
+			['relevance'] = "",
+		},
+		{
+			['id'] = "1281456197",
+			['relevance'] = "",
+		},
+	},
+	request = {
+		['select'] = "*",
+		['dataset'] = "inventory",
+		['get_id'] = "",
+		['max_results'] = "10",
+	},
+}
+
+  
+get_surface_alpha	=
+function: 0x8113780
+  
+set_camera_x	=
+function: 0x81110a8
+  
+set_surface_on_lost_focus	=
+function: 0x8113a28
+  
+font1	=
+table: 0x8130e58
+  
+db	=
+table: 0x81cf3e8
+  
+set_matrix_x	=
+function: 0x810ce80
+  
+run_script_reuse	=
+function: 0x810b328
+  
+get_render_mode	=
+function: 0x8113db0
+  
+body_get_rotation	=
+function: 0x8110f70
+  
+get_matrix_x	=
+function: 0x810cec0
+  
+set_surface_on_draw	=
+function: 0x8113998
+  
+screen_width	=
+function: 0x810d748
+  
+get_surface_width	=
+function: 0x810d8c8
+  
+set_surface_dirty	=
+function: 0x8113918
+  
+get_surface_can_have_focus	=
+function: 0x8113448
+  
+print	=
+function: 0x80f9c20
+  
+set_surface_height	=
+function: 0x810d888
+  
+set_surface_width	=
+function: 0x810d908
+  
+vt_create	=
+function: 0x810ed98
+  
+get_surface_noevents	=
+function: 0x81133b8
+  
+vt_bgcolor	=
+function: 0x810fe90
+  
+mouse_lr	=
+function: 0x810d698
+  
+get_surface_dirty	=
+function: 0x8113958
+  
+collectgarbage	=
+function: 0x810a690
+  
+get_camera_pitch	=
+function: 0x81112e8
+  
+create_worldspace	=
+function: 0x8110d38
+  
+set_camera_pitch	=
+function: 0x81112a8
+  
+resolv	=
+function: 0x810dd60
+  
+destroy_worldspace	=
+function: 0x8110d78
+  
+reinit	=
+function: 0x810be38
+  
+pcall	=
+function: 0x810a618
+  
+run_script_thread_reuse	=
+function: 0x810b580
+  
+get_rgb	=
+function: 0x810d480
+  
+get_surface_by_xy	=
+function: 0x8113df0
+  
+get_surface_transparent	=
+function: 0x81137c8
+  
+get_camera_bitmap	=
+function: 0x8111068
+  
+msend	=
+function: 0x810c248
+  
+set_surface_always_on_top	=
+function: 0x8113ec8
+  
+mod_isloaded	=
+function: 0x81091e0
+  
+mod_unload	=
+function: 0x8105748
+  
+set_surface_on_mouse_click	=
+function: 0x8113b48
+  
+tick	=
+function: 0x810d6d0
+  
+getfenv	=
+function: 0x80eef28
+  
+model_add_face	=
+function: 0x81113e8
+  
+y	=
+3
+  
+io	=
+table: 0x81040a0
+  
+set_camera_heading	=
+function: 0x8111228
+  
+set_surface_on_keypress	=
+function: 0x8113a70
+  
+surface_get_pixel	=
+function: 0x810d448
+  
+get_surface_bitmap	=
+function: 0x8113bc8
+  
+file_exists	=
+function: 0x81035f8
+  
+surface_has_focus	=
+function: 0x810d270
+  
+client_interface	=
+table: 0x8124718
+  
+term	=
+table: 0x818fdd0
+  
+get_camera_heading	=
+function: 0x8111268
+  
+surface_rect_fill	=
+function: 0x810d540
+  
+include	=
+function: 0x810b768
+  
+vt_dirty	=
+function: 0x8104f30
+  
+run_stringthread	=
+function: 0x810ed60
+  
+chmod	=
+function: 0x80fe580
+  
+get_surface_screen_y	=
+function: 0x8113e80
+  
+get_camera_y	=
+function: 0x8111168
+  
+destroy_surface	=
+function: 0x810d808
+  
+set_camera_y	=
+function: 0x8111128
+  
+set_debug_mode	=
+function: 0x8110cf8
+  
+render_model_gouraud	=
+function: 0x810cd38
+  
+get_surface_x	=
+function: 0x810d948
+  
+xpcall	=
+function: 0x810a650
+  
+_VERSION	=
+Lua 5.0.3
+  
+listen	=
+function: 0x810e3d0
+  
+create_model	=
+function: 0x81113a8
+  
+__pow	=
+function: 0x81038a8
+  
+set_surface_z	=
+function: 0x8113298
+  
+require	=
+function: 0x80da5d0
+  
+vt_fgcolor	=
+function: 0x810fe50
+  
+next	=
+function: 0x80e7280
+  
+surface_transparent_blit	=
+function: 0x810d408
+  
+get_surface_z	=
+function: 0x81131d8
+  
+rawequal	=
+function: 0x80f9118
+  
+timer	=
+function: 0x810d5b8
+  
+newproxy	=
+function: 0x80da628
+  
+label	=
+table: 0x8128508
+  
+get_matrix_y	=
+function: 0x810cf40
+  
+connect	=
+function: 0x810e070
+  
+yield	=
+function: 0x810ba38
+  
+memory_usage	=
+function: 0x8110b98
+  
+application	=
+table: 0x8114400
+  
+setfenv	=
+function: 0x80eef60
+  
+get_surface_rotation	=
+function: 0x8113740
+  
+body_set_rotation	=
+function: 0x8110f30
+  
+vt_convscan	=
+function: 0x810fc98
+  
+create_body	=
+function: 0x8110e30
+  
+surface_line	=
+function: 0x810d4c0
+  
+readkey	=
+function: 0x810d628
+  
+setvar	=
+function: 0x80fe598
+  
+mod_load	=
+function: 0x8105830
+  
+vt_update	=
+function: 0x8104c10
+  
+pairs	=
+function: 0x80f9be8
+  
+assert	=
+function: 0x80f90a8
+  
+set_focus	=
+function: 0x810d1f8
+  
+gradient	=
+function: 0x8113c80
+  
+yoffset	=
+2
+  
+get_surface_tab_index	=
+function: 0x8113328
+  
+get_surface_screen_x	=
+function: 0x8113e38
+  
+_LOADED	=
+table: 0x810ae48
+  
+destroy_body	=
+function: 0x8110e70
+  
+thread	=
+id-1077003408
+  
+echo	=
+function: 0x80fb4a8
+  
+get_matrix_r_y	=
+function: 0x810d0c0
+  
+get_thread_priority	=
+function: 0x8114118
+  
+coroutine	=
+table: 0x80da668
+  
+run_script	=
+function: 0x81098f0
+  
+set_thread_priority	=
+function: 0x8114158
+  
+vt_forkpty	=
+function: 0x80fea18
+  
+loadstring	=
+function: 0x80da598
+  
+plane_set_geom	=
+function: 0x8110df8
+  
+set_surface_tab_index	=
+function: 0x81132e0
+  
+exec	=
+function: 0x810c718
+  
+surface_clear	=
+function: 0x810d338
+  
+string	=
+table: 0x81029f0
+  
+scroll	=
+table: 0x814a680
+  
+sendall	=
+function: 0x810c280
+  
+table	=
+table: 0x80f9800
+  
+listbox	=
+table: 0x812cf60
+  
+container	=
+table: 0x81124b0
+  
+set_surface_visible	=
+function: 0x8113808
+  
+vt_write	=
+function: 0x81102b0
+  
+get_camera_z	=
+function: 0x81111e8
+  
+ipairs	=
+function: 0x80e72b8
+  
+set_matrix_z	=
+function: 0x810cf80
+  
+get_surface_visible	=
+function: 0x81136f8
+  
+set_surface_on_mouse_down	=
+function: 0x8113ab8
+  
+set_camera_z	=
+function: 0x81111a8
+  
+initialize_video	=
+function: 0x8113d30
+  
+create_camera	=
+function: 0x8110fe8
+  
+set_model_offset	=
+function: 0x810cbf8
+  
+set_surface_bitmap	=
+function: 0x8113b88
+  
+set_model_face_data	=
+function: 0x810cc38
+  
+surface_load_gif	=
+function: 0x8113fc0
+  
+type	=
+function: 0x80f9cc8
+  
+get_surface_y	=
+function: 0x810d988
+  
+get_model_face_data	=
+function: 0x810cc78
+  
+set_surface_y	=
+function: 0x8113258
+  
+mouse_xy	=
+function: 0x810d660
+  
+loadfile	=
+function: 0x810a700
+  
+render	=
+function: 0x810d5f0
+  
+openfile	=
+function: 0x810c758
+  
+close	=
+function: 0x810e0b0
+  
+reference	=
+table: 0x81038e0
+  
+vsync	=
+function: 0x810d708
+  
+surface_print_wordwrap	=
+function: 0x810d2b8
+  
+button	=
+table: 0x811d220
+  
+mod_loadthread	=
+function: 0x8109080
+  
+get_matrix_r_x	=
+function: 0x810d040
+  
+get_model_face_count	=
+function: 0x810cbb8
+  
+set_matrix_r_x	=
+function: 0x810d000
+  
+vt	=
+userdata: 0x81d0078
+  
+retval	=
+49
+  
+vt_forsake_child	=
+function: 0x8104c70
+  
+x	=
+3
+  
+xoffset	=
+-5
+  
+window1	=
+table: 0x8143018
+  
+tprint	=
+function: 0x812a030
+  
+terminal	=
+table: 0x81291e8
+  
+window	=
+table: 0x8133028
+  
+scrollbar	=
+table: 0x812db18
+  
+inputbox	=
+table: 0x811cb18
+  
+set_surface_on_got_focus	=
+function: 0x81139e0
+  
+iconbox	=
+table: 0x811e298
+  
+hidden	=
+table: 0x8114ba0
+  
+getvar	=
+function: 0x80fe758
+  
+set_surface_x_offset	=
+function: 0x81130c0
+  
+surface	=
+table: 0x811d788
+  
+_G	=
+table: 0x80fd420
+  
+set_camera_bitmap	=
+function: 0x8111028
+  
+tostring	=
+function: 0x80f9c90
+  
+render_loop	=
+function: 0x8113cf0
+  
+simulate	=
+function: 0x8110fa8
+  
+os	:
+    
+exit	=
+function: 0x80fd1c8
+    
+setlocale	=
+function: 0x80fd138
+    
+execute	=
+function: 0x80fd1b0
+    
+getenv	=
+function: 0x80fd200
+    
+difftime	=
+function: 0x80fd178
+    
+remove	=
+function: 0x80fd218
+    
+time	=
+function: 0x8107260
+    
+clock	=
+function: 0x810ad98
+    
+tmpname	=
+function: 0x8107298
+    
+rename	=
+function: 0x80fd100
+    
+date	=
+function: 0x80fd0c8
+  
+body_set_position	=
+function: 0x8110eb0
+  
+create_plane	=
+function: 0x8110db8
+  
+gcinfo	=
+function: 0x810a6c8
+  
+exgen_install	=
+function: 0x8103718
+  
+recv	=
+function: 0x810c1a0
+  
+set_surface_can_have_focus	=
+function: 0x8113400
+  
+surface_print	=
+function: 0x810d2f8
+  
+surface_save_bmp	=
+function: 0x8113f80
+  
+tonumber	=
+function: 0x80f9c58
+  
+get_thread_count	=
+function: 0x81140d8
+  
+mrecv	=
+function: 0x810c210
+  
+surface_load_animated_gif	=
+function: 0x8114008
+  
+vt_keypress	=
+function: 0x81104c8
+  
+set_surface_lua	=
+function: 0x810d580
+  
+surface_load_bmp	=
+function: 0x8113f40
+  
+fork	=
+function: 0x810db20
+  
+stop_render	=
+function: 0x8113f00
+  
+render_model	=
+function: 0x810ccf0
+  
+set_surface_x	=
+function: 0x8113218
+  
+set_surface_position_absolute	=
+function: 0x8113078
+  
+branch	=
+function: 0x810b730
+  
+unlock	=
+function: 0x8110bd0
+  
+set_root_surface	=
+function: 0x8113c08
+  
+get_matrix_scale	=
+function: 0x810d1c0
+  
+get_matrix_r_z	=
+function: 0x810d140
+  
+send	=
+function: 0x810c1d8
+  
+set_surface_on_mouse_up	=
+function: 0x8113b00
+  
+set_surface_rotation	=
+function: 0x8113850
+  
+set_matrix_scale	=
+function: 0x810d180
+  
+render_model_wireframe	=
+function: 0x810cd80
+  
+image	:
+    
+new	=
+function: 0x811cbe0
+  
+set_surface_transparent	=
+function: 0x81138d8
+  
+unpack	=
+function: 0x80f90e0
+  
+create_surface	=
+function: 0x810d7c8
+  
+set_surface_alpha	=
+function: 0x8113890
+  
+include_string	=
+function: 0x810b810
+  
+inkey	=
+function: 0x810dd20
+  
+download_string	=
+function: 0x80fb430
+  
+set_surface_y_offset	=
+function: 0x8113108
+  
+setmetatable	=
+function: 0x80e8d48
+  
+accept	=
+function: 0x810e430
+  
+run_scriptthread	=
+function: 0x81096b0
+  
+update_camera	=
+function: 0x8111368
+  
+run_string	=
+function: 0x810ed20
+  
+screen_height	=
+function: 0x810d788
+  
+get_surface_transcolor	=
+function: 0x81136b8
+  
+math	:
+    
+log	=
+function: 0x80fa280
+    
+atan	=
+function: 0x8100c50
+    
+ldexp	=
+function: 0x8100ba0
+    
+deg	=
+function: 0x81037a8
+    
+tan	=
+function: 0x8105058
+    
+cos	=
+function: 0x8105028
+    
+pi	=
+3.1415926535898
+    
+random	=
+function: 0x8103840
+    
+randomseed	=
+function: 0x8103878
+    
+frexp	=
+function: 0x8100b68
+    
+ceil	=
+function: 0x8100cc0
+    
+floor	=
+function: 0x8100cf8
+    
+rad	=
+function: 0x8103808
+    
+max	=
+function: 0x8103748
+    
+sqrt	=
+function: 0x8100bd8
+    
+pow	=
+function: 0x81037d8
+    
+asin	=
+function: 0x8104fb8
+    
+min	=
+function: 0x8100c08
+    
+mod	=
+function: 0x8100d28
+    
+exp	=
+function: 0x8103778
+    
+log10	=
+function: 0x80fd088
+    
+atan2	=
+function: 0x8100c88
+    
+acos	=
+function: 0x8104ff0
+    
+sin	=
+function: 0x80efae0
+    
+abs	=
+function: 0x80efab0
+  
+vt_cursor_col	=
+function: 0x81109e0
+  
+shutdown	=
+function: 0x810ba98
+  
+set_surface_transcolor	=
+function: 0x81135e0
+  
+get_surface_y_offset	=
+function: 0x8113198
+  
+getmetatable	=
+function: 0x80e8d30
+  
+set_matrix_r_z	=
+function: 0x810d100
+  
+update_matrix	=
+function: 0x810ce00
+  
+app	:
+  
+mod_update	=
+function: 0x80fb3c8
+  
+set_surface_font	=
+function: 0x8113508
+  
+get_surface_parent	=
+function: 0x8113488
+  
+rawset	=
+function: 0x80f9188
+  
+exgen_update	=
+function: 0x8103590
+  
+set_surface_noevents	=
+function: 0x8113370
+  
+quit	=
+function: 0x810be20
+  
+get_surface_position_absolute	=
+function: 0x810d9a0
+  
+help	=
+function: 0x80fb370
+  
+initialize_camera	=
+function: 0x8111328
+  
+body_get_position	=
+function: 0x8110ef0
+  
+vt_char	=
+function: 0x810f960
+  
+makecol	=
+function: 0x8113cb8
+  
+get_root_surface	=
+function: 0x8113c48
+  
+savefile	=
+function: 0x810ca58
+  
+get_surface_height	=
+function: 0x810d848
+  
+surface_rect	=
+function: 0x810d500
+  
+get_surface_x_offset	=
+function: 0x8113150
+  
+surface_get_text_height	=
+function: 0x8114098
+  
+surface_stretch_blit	=
+function: 0x810d3c0
+  
+surface_blit	=
+function: 0x810d378
+  
+rawget	=
+function: 0x80f9150
+  
+set_matrix_y	=
+function: 0x810cf00
+  
+set_matrix_r_y	=
+function: 0x810d080
+  
+vt_clean	=
+function: 0x810f900
+  
+dofile	=
+function: 0x810a738
+  
+get_matrix_z	=
+function: 0x810cfc0
+  
+vt_cursor_row	=
+function: 0x8110828
+  
+error	=
+function: 0x80e8cf0
+  
+load_3ds	=
+function: 0x810ccb0
+
+set_camera_bitmap	=
+function: 0x8111028
+
+tostring	=
+function: 0x80f9c90
+
+render_loop	=
+function: 0x8113cf0
+
+simulate	=
+function: 0x8110fa8
+
+os	=
+table: 0x80fc720
+
+body_set_position	=
+function: 0x8110eb0
+
+create_plane	=
+function: 0x8110db8
+
+gcinfo	=
+function: 0x810a6c8
+
+exgen_install	=
+function: 0x8103718
+
+recv	=
+function: 0x810c1a0
+
+set_surface_can_have_focus	=
+function: 0x8113400
+
+surface_print	=
+function: 0x810d2f8
+
+surface_save_bmp	=
+function: 0x8113f80
+
+tonumber	=
+function: 0x80f9c58
+
+get_thread_count	=
+function: 0x81140d8
+
+mrecv	=
+function: 0x810c210
+
+surface_load_animated_gif	=
+function: 0x8114008
+
+vt_keypress	=
+function: 0x81104c8
+
+set_surface_lua	=
+function: 0x810d580
+
+surface_load_bmp	=
+function: 0x8113f40
+
+fork	=
+function: 0x810db20
+
+stop_render	=
+function: 0x8113f00
+
+render_model	=
+function: 0x810ccf0
+
+set_surface_x	=
+function: 0x8113218
+
+set_surface_position_absolute	=
+function: 0x8113078
+
+branch	=
+function: 0x810b730
+
+unlock	=
+function: 0x8110bd0
+
+set_root_surface	=
+function: 0x8113c08
+
+get_matrix_scale	=
+function: 0x810d1c0
+
+get_matrix_r_z	=
+function: 0x810d140
+
+send	=
+function: 0x810c1d8
+
+set_surface_on_mouse_up	
