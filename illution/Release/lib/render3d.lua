@@ -690,3 +690,80 @@ create_model_from_image =  function(model, surface, scale, size, invert)
     end
     
 end
+
+
+create_sphere = function(s, diameter, segments, origin_x, origin_y, origin_z, image) 
+    ox = origin_x;
+    oy = origin_y;
+    oz = origin_z;
+    r = diameter * 0.5;
+    pi = 3.141592;
+    step = (2*pi)/segments;
+    
+    
+    for latitude = 1, segments, 1 do
+        r1 = r * math.cos(((latitude/2)*step));
+        r2 = r * math.cos((((latitude-1)/2)*step));
+        radius1 = r * math.sin(((latitude/2)*step));
+        radius2 = r * math.sin((((latitude-1)/2)*step));
+
+        for i = 1, segments, 1 do
+	    x1 = radius2 * math.cos((i*step));
+	    y1 = radius2 * math.sin((i*step));
+	    x2 = radius2 * math.cos(((i+1)*step));
+	    y2 = radius2 * math.sin(((i+1)*step));
+
+	    x3 = radius1 * math.cos((i*step));
+	    y3 = radius1 * math.sin((i*step));
+	    x4 = radius1 * math.cos(((i+1)*step));
+	    y4 = radius1 * math.sin(((i+1)*step));
+	
+	    l = 1;
+	    lx = x2 - x1;
+	    ly = y2 - y1;
+	    
+	    img_x1 = (image.width / segments) * (i-1);
+	    img_y1 = (image.height / segments) * (latitude-1);
+	    img_x2 = (image.width / segments) * (i);
+	    img_y2 = (image.height / segments) * (latitude-1);
+
+	    img_x3 = (image.width / segments) * (i-1);
+	    img_y3 = (image.height / segments) * (latitude);
+	    img_x4 = (image.width / segments) * (i);
+	    img_y4 = (image.height / segments) * (latitude);
+	    
+	
+	    --echo(i..": "..x1..", "..y1.." - ".. x2..", "..y2.."\n");
+	    fc = s.face_count;
+	    s.add_face();
+	    s.add_face();
+	
+
+	    color1 = makecol((255 / segments)*i, 0, 0);
+	    color2 = makecol(0, (255 / segments)*i, 0);
+	    color3 = makecol(0, 0, (255 / segments)*i);
+	    color4 = makecol((255 / segments)*i, (255 / segments)*i, (255 / segments)*i);
+	    -- a
+	    s.set_face_data(fc+0, 0, ox+x3, oy+y3, oz+r1,   0+img_x3,   0+img_y3, color1);
+	    -- b
+	    s.set_face_data(fc+0, 1, ox+x1, oy+y1, oz+r2, 0.0+img_x1,   0+img_y1, color2);
+	    -- c
+	    s.set_face_data(fc+0, 2, ox+x2, oy+y2, oz+r2, 0.0+img_x2, 0.0+img_y2, color3);
+
+	    -- a
+	    s.set_face_data(fc+1, 0, ox+x3, oy+y3, oz+r1, 0.0+img_x3, 0.0+img_y3, color1);
+	    -- d
+	    s.set_face_data(fc+1, 1, ox+x4, oy+y4, oz+r1,   0+img_x4, 0.0+img_y4, color4);
+	    -- c
+	    s.set_face_data(fc+1, 2, ox+x2, oy+y2, oz+r2,   0+img_x2,   0+img_y2, color3);
+	    echo("i: "..i.." l: "..latitude.." x1: "..img_x1.." y1: "..img_y1.."\n");
+	    echo("i: "..i.." l: "..latitude.." x2: "..img_x2.." y2: "..img_y2.."\n");
+	    echo("i: "..i.." l: "..latitude.." x3: "..img_x3.." y3: "..img_y3.."\n");
+	    echo("i: "..i.." l: "..latitude.." x4: "..img_x4.." y4: "..img_y4.."\n\n");
+
+	end
+        
+	
+	
+    end
+end

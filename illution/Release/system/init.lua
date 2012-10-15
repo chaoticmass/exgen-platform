@@ -32,12 +32,12 @@ initialize_video(800, 600);
 include("system/config/system_config.lua");
 include("system/config/colors.lua");
 include("system/config/desktop_config.lua");
---include("system/desktop.lua");
---include("system/taskbar.lua");
-include("apps/fullscreen_physics_sia.lua");
+include("system/desktop.lua");
+include("system/taskbar.lua");
+--include("apps/fullscreen_physics_sia.lua");
 --include("glowerk/glowerk.lua");
 
---branch("apps/dead_simple.lua");
+include("apps/sphere.lua");
 --branch("apps/windowed_physics_sia.lua");
 --branch("apps/catalog.lua");
 --include("apps/title.lua");

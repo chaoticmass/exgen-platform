@@ -150,7 +150,7 @@ const float Rad2All = 40.7436655;
 const float deg180_rad = 3.14159265;
 
 float fov = 60;
-float aspect = 1.66f;
+float aspect = 1.33f;
 
 // polygons
 
