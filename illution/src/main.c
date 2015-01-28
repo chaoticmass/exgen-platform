@@ -26,6 +26,7 @@ int initialize_video(int video_mode, int l_resx, int l_resy) {
 	
     double lastTime, currentTime, fps;
     struct timeval time;
+    int retval = -1;
 
     gettimeofday(&time, NULL);
     lastTime = time.tv_sec + time.tv_usec*1e-6;
@@ -37,7 +38,11 @@ int initialize_video(int video_mode, int l_resx, int l_resy) {
     set_color_depth(32);
     illution_resx = l_resx;
     illution_resy = l_resy;
-    int retval = set_gfx_mode(video_mode, illution_resx, illution_resy, 0, 0);	
+    if (l_resx + l_resy > 0) {
+	retval = set_gfx_mode(video_mode, illution_resx, illution_resy, 0, 0);
+    } else {
+	//retval = set_gfx_mode(video_mode, 0, 0, 0, 0);
+    }
     //int retval = set_gfx_mode(GFX_FBCON, illution_resx, illution_resy, 0, 0);	
     if (retval) {
 	printf("Unable to initialize graphics mode.\n");
@@ -499,7 +504,7 @@ int illution_flip(void) {
 int create_surface(int width, int height) {
     int i = 0;
     int index = -1;
-//--pthread_mutex_lock(&surface_mutex);    
+    pthread_mutex_lock(&surface_mutex);    
     for (i = 0; i < surfacecount; i += 1) {
 	if (surfaces[i] == NULL) {
 	    index = i;
@@ -582,7 +587,7 @@ int create_surface(int width, int height) {
     surfaces[index]->lua_mutex = (pthread_mutex_t*) malloc (sizeof(pthread_mutex_t));
     pthread_mutex_init(surfaces[index]->lua_mutex, NULL);
     
-//--pthread_mutex_unlock(&surface_mutex);        
+    pthread_mutex_unlock(&surface_mutex);        
     resort_zorder();    
 
     return index;
@@ -594,7 +599,7 @@ int destroy_surface(int index) {
     if (debug_mode) { 
 	printf("destroy surface...%i\n", index);
     }
-//--pthread_mutex_lock(&surface_mutex);    
+    pthread_mutex_lock(&surface_mutex);    
     if (check_surface(index)) {
 	if (focus == index) {
 	    focus = surfaces[index]->parent;
@@ -607,9 +612,11 @@ int destroy_surface(int index) {
 	for(i = 0; i < surfacecount; i += 1) {
 	    if (check_surface(i)) {
 		if (surfaces[i]->parent == index) {
-		    //--pthread_mutex_unlock(&surface_mutex);        
-		    destroy_surface(i);
-		    //--pthread_mutex_lock(&surface_mutex);        
+		    if (surfaces[i]->parent != i) {
+			pthread_mutex_unlock(&surface_mutex);        
+			destroy_surface(i);
+			pthread_mutex_lock(&surface_mutex);        
+		    }
 		}
 	    }
 	}
@@ -633,7 +640,7 @@ int destroy_surface(int index) {
 	    rootsurface = -1;
 	}
     }
-//--pthread_mutex_unlock(&surface_mutex);        
+    pthread_mutex_unlock(&surface_mutex);        
     if (debug_mode) {
 	printf("done\n");
     }

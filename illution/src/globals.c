@@ -1,4 +1,4 @@
-#define VERSION_STRING 	"0.20A"
+#define VERSION_STRING ""
 #define ARCH_STRING	"linux_x86"
 #include <stdio.h>
 #include <string.h>
@@ -222,6 +222,8 @@ struct worldspace_type {
     dWorldID world;
     dSpaceID space;
     dJointGroupID contactgroup;
+    int on_collide;
+    void * L;
     double lasttime;
 };
 

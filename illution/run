@@ -1,7 +1,6 @@
 #!/bin/sh
 
 build
-cd /usr/local/share/exgen/modules/illution_support/
-exgen system/init.lua
-#exgen accounts/accounts.lua
-#exgen glowerk/glowerk.lua
+#exgen illution system/init.lua apps/logo.lua
+exgen illution system/init.lua apps/breakout.lua
+#exgen illution system/init.lua apps/fullscreen_physics_sia.lua

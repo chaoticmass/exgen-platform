@@ -36,7 +36,7 @@ int lua_newdofile(lua_State * L, char * file) {
 
 int lua_newdostring(lua_State * L, char * file) {
     int err = 0;
-    err = luaL_loadbuffer(L, file, strlen(file), file);
+    err = luaL_loadbuffer(L, file, strlen(file), "included file");
     if (err) {
 	cout(lua_tostring(L, -1));
 	cout("\n");
@@ -517,6 +517,12 @@ char * findfile(char ** file) {
 	    free(tmpfile);
 	}
     }
+    asprintf(&tmpfile, "%smodules/%s_support/%s", GetVar("configuration", "resource-path"),  "exgen", *file);
+    if (file_exists(tmpfile)) {
+	*file = tmpfile;
+	return 1;
+    }
+    free(tmpfile);
 
     // check /etc
     asprintf(&tmpfile, "/etc/%s", *file);
@@ -778,7 +784,7 @@ void *lua_runstring_thread_reuse (void * L, char *file ) {
     
     retval = pthread_attr_setschedpolicy(&tattr, SCHED_OTHER);
     
-    printf("Spawning thread\n");
+//    printf("Spawning thread\n");
     ret = pthread_create(&tid, &tattr, lua_lua_dostring_reuse, lua_data);
     pthread_attr_destroy(&tattr);
     
@@ -837,7 +843,7 @@ int lua_runstring (char *string ) {
     lua_init(L);
     
     //err = lua_dostring(L, string);
-    err = luaL_loadbuffer(L, string, strlen(string), string) ||
+    err = luaL_loadbuffer(L, string, strlen(string), "included string") ||
 	    lua_pcall(L, 0, 0, 0);
     
     if (err) {
@@ -867,7 +873,7 @@ void *lua_runstring_reuse (void * L, char *string ) {
 	lua_init(L);
     }
     
-    err = luaL_loadbuffer(L, string, strlen(string), string) ||
+    err = luaL_loadbuffer(L, string, strlen(string), "included string") ||
 	    lua_pcall(L, 0, 0, 0);
     
     if (err) {
@@ -1045,7 +1051,8 @@ int main (int argc, char *argv[]) {
     act.sa_handler = catch_signal;
     sigemptyset(&act.sa_mask);
     act.sa_flags = 0;
-    sigaction(SIGINT, &act, NULL);
+    //sigaction(SIGINT, &act, NULL);
+    sigaction(SIGSEGV, &act, NULL);
 
     // catch child process exits
     signal(SIGCHLD, handler);

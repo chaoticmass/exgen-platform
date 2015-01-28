@@ -3,6 +3,36 @@
 // l_ prefix
 // Functions called by lua scripts
 
+int l_md5_hash(void * L) {
+    char *str = lua_tostring(L, 1);
+    int length = lua_strlen(L, 1);
+    int n;
+    MD5_CTX c;
+    unsigned char digest[16];
+    char *out = (char*)malloc(33);
+
+    MD5_Init(&c);
+
+    while (length > 0) {
+        if (length > 512) {
+            MD5_Update(&c, str, 512);
+        } else {
+            MD5_Update(&c, str, length);
+        }
+        length -= 512;
+        str += 512;
+    }
+
+    MD5_Final(digest, &c);
+
+    for (n = 0; n < 16; ++n) {
+        snprintf(&(out[n*2]), 16*2, "%02x", (unsigned int)digest[n]);
+    }
+
+    lua_pushstring(L, out);
+    return 1;
+}
+
 int l_download_string(void * L) {
     int n = lua_gettop(L);
     char *hostname = lua_tostring(L, 1);
@@ -278,9 +308,14 @@ int l_listen(lua_State * L) { // PORT, IP
     bind(sockfd, (struct sockaddr *)&my_addr, sizeof(my_addr));
     
     int yes = 1;
-    setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int));
+    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int))) {
+	printf("Error setting socket option: %d\n", errno);
+    }
     
-    listen(sockfd, 5);
+    if (listen(sockfd, 25)) {
+	printf("Error listening to socket: %d\n", errno);
+    }
+    
     
     lua_pushnumber(L, sockfd);
     
@@ -292,12 +327,11 @@ int l_accept(lua_State * L) { // sockfd
     int newfd;
     struct sockaddr_in their_addr;
     int sin_size;
-    
+
     sockfd = lua_tonumber(L, 1);
     
     sin_size = sizeof(their_addr);
     newfd = accept(sockfd, (struct sockaddr *)&their_addr, &sin_size);
-    
     lua_pushnumber(L, newfd);
     return 1;
 }
@@ -306,8 +340,8 @@ int l_close(lua_State * L) { // sockfd
     int sockfd;
     
     sockfd = lua_tonumber(L, 1);
-    close(sockfd);
-    return 0;
+    lua_pushnumber(L, close(sockfd));
+    return 1;
 }
 
 int l_msend(lua_State * L) { // sockfd, string
@@ -352,16 +386,13 @@ int l_recv(lua_State * L) { // sockfd
     sockfd = lua_tonumber(L, 1);
     
     numbytes = recv(sockfd, buf, datasize, MSG_DONTWAIT);
-    printf("NUMBYTES: %i\n", numbytes);
+//    printf("NUMBYTES: %i\n", numbytes);
     if (numbytes > 0) {
 	buf[numbytes] = 0;
 	lua_pushstring(L, buf);
 	return 1;
-    } else if (numbytes == 0) {
-	lua_pushnil(L);
-	return 1;
-    } else if (numbytes == -1) {
-	printf("No bytes chief, it's -1\n");
+    } else {
+	//lua_pushnumber(L, numbytes);
 	lua_pushnil(L);
 	return 1;
     }
@@ -378,15 +409,19 @@ int l_sendall(lua_State * L) { // sockfd, string
     sockfd = lua_tonumber(L, 1);
     send_string = lua_tostring(L, 2);
     
-    bytesleft = strlen(send_string);
+    bytesleft = lua_strlen(L, 2);
     start = bytesleft;
     
     while (total < start) {
 	n = send(sockfd, send_string+total, bytesleft, 0);
+	if (n == -1) {
+	    break;
+	}
 	total += n;
 	bytesleft -= n;
     }
-    return n==-1?-1:0; // -1 on failure, 0 on success
+    lua_pushnumber(L, n==-1?-1:0); // -1 on failure, 0 on success
+    return 1;
 }
 
 int l_send(lua_State * L) { // sockfd, string
@@ -397,10 +432,10 @@ int l_send(lua_State * L) { // sockfd, string
     sockfd = lua_tonumber(L, 1);
     send_string = lua_tostring(L, 2);
     string_length = lua_strlen(L, 2);
-    printf("About to send Sockfd: %i\n", sockfd);
-    send(sockfd, send_string, string_length, MSG_NOSIGNAL);
-    printf("done\n");
-    return 0;
+//    printf("About to send Sockfd: %i\n", sockfd);
+    lua_pushnumber(L, send(sockfd, send_string, string_length, MSG_NOSIGNAL));
+//    printf("done %i\n", sockfd);
+    return 1;
 }
 
 int l_getvar(lua_State * L) {
@@ -423,11 +458,6 @@ int l_setvar(lua_State * L) {
     return 0;
 }
 
-int l_sqlite_open(lua_State * L) {
-    int n = lua_gettop(L);
-    char *filename = lua_tostring(L, 1);
-//    char *
-}
 
 int l_filemtime(lua_State * L) {
     int n = lua_gettop(L);
@@ -441,7 +471,9 @@ int l_cout(lua_State * L) {
     int n = lua_gettop(L);
     
     char *string = lua_tostring(L, 1);
-    cout(string);
+    //cout(string);
+    //printf("%p: %s", pthread_self(), string);
+    printf("%s", string);
     //cout("\n");
 
     //pthread_yield();    
@@ -572,7 +604,7 @@ int l_list_directories(lua_State * L) {
     lua_newtable(L);
 
     dp = opendir(path);
-    printf("Listing directory: %s\n", path);
+//    printf("Listing directory: %s\n", path);
     if (dp != NULL) {
 	while (ep = readdir(dp)) {
 	    if (strcmp(".", ep->d_name) == 0) {
@@ -661,9 +693,9 @@ int l_chmod(lua_State * L) {
     int n = lua_gettop(L);
     
     char *file = lua_tostring(L, 1);
-    int m = lua_tonumber(L, 2);
+    char *m = lua_tostring(L, 2);
     
-    chmod(file, m);
+    chmod(file, strtol(m, 0, 8));
     return 0;
 }
 
@@ -697,12 +729,14 @@ int l_savefile(lua_State * L) {
     
     char *file = lua_tostring(L, 1);
     char *string = lua_tostring(L, 2);
-    printf("Saving %s!\n", file);
+    int length = lua_strlen(L, 2);
+    //printf("Saving %s!\n", file);
     FILE *h = fopen(file, "w");
     if (h == NULL) { 
-	printf("FAILED TO SAVE FILE!~!!!!\n");
+	//printf("FAILED TO SAVE FILE!~!!!!\n");
     } else {
-	fputs(string, h);
+	//fputs(string, h);
+	fwrite(string, length, 1, h);
 	fclose(h);
     }
     return 0;
@@ -713,9 +747,8 @@ int l_openfile(lua_State * L) {
     int n = lua_gettop(L);
     
     char *name = lua_tostring(L, 1);
-    printf("Name: %s\n", name);
     if (findfile(&name)) {
-	printf("Name: %s\n", name);
+//	printf("Name: %s\n", name);
 
         FILE *file;
 	char *buffer;
@@ -748,7 +781,7 @@ int l_openfile(lua_State * L) {
         lua_pushlstring(L, buffer, fileLen);
         return 1;
     } else {
-	printf("FAIL\n");
+//	printf("FAIL\n");
 	return 0;
     }
 }
@@ -852,7 +885,7 @@ int l_luaload_thread_reuse(lua_State * L) {
 
 int l_new_state(lua_State * L) {
     void * nL = NULL;
-    printf("\nNew Lua State...\n");
+//    printf("\nNew Lua State...\n");
     nL = lua_open();
 
     lua_baselibopen(nL);
@@ -861,7 +894,7 @@ int l_new_state(lua_State * L) {
     luaopen_string(nL);
     luaopen_math(nL);
     lua_init(nL);
-    printf("done\n");    
+//    printf("done\n");    
     lua_pushlightuserdata(L, nL);
     return 1;
 }
@@ -954,6 +987,10 @@ int l_yield(lua_State * L) {
     return 0;
 }
 
+int l_thread_id(lua_State * L) {
+    lua_pushnumber(L, pthread_self());
+    return 1;
+}
 
 int l_reinit(lua_State * L) {
     lua_init(L);
@@ -1279,6 +1316,10 @@ int lua_init(lua_State * L) {
     lua_pushliteral(L, "reference");
     lua_newtable(L);
     lua_settable(L, LUA_GLOBALSINDEX);
+
+//    lua_pushliteral(L, "db_results");
+//    lua_newtable(L);
+//    lua_settable(L, LUA_GLOBALSINDEX);
     
     lua_pushliteral(L, "reference");
     tindex = lua_gettop(L);
@@ -1371,7 +1412,12 @@ int lua_init(lua_State * L) {
     lua_register(L, "vt_cursor_col", l_vt_cursor_col); 	lua_register_help(L, "vt_cursor_col", 	"VT *vt", "Returns the current column of the cursor in the virtual terminal.", "", "core");
 
     lua_register(L, "memory_usage", l_memory_usage);
+    lua_register(L, "md5_hash", l_md5_hash);
+    lua_register(L, "thread_id", l_thread_id);
     
+    lua_register(L, "db_open", l_db_open);
+    lua_register(L, "db_close", l_db_close);
+    lua_register(L, "db_exec", l_db_exec);
     
     int i = 0;
     for (i = 0; i < modulecount; i += 1) {	

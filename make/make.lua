@@ -37,20 +37,29 @@ for i=1,table.getn(projects),1 do
 	    os.remove("./cp_"..projects[i].name);
 	    
 	end
-	
 	if (build == 1) then
     	    echo("Building project ".. projects[i].name .."...\n")
 	    cmd = "cd "..projects_dir.."\n";
 	    cmd = cmd.."cd "..projects[i].working_dir.."\n";
-	    cmd = cmd.."cp "..projects[i].src_files[1].." "..projects[i].src.."\n";
+	    cmd = cmd.."cp "..projects[i].src_files[1].." "..projects[i].src.."\n"
 	    for src_file=2, table.getn(projects[i].src_files), 1 do		
 		cmd = cmd.."cat "..projects[i].src_files[src_file].." >> "..projects[i].src.."\n";
 	    end
-	        
+	    savefile("assemble_"..projects[i].name, cmd)
+	    chmod("assemble_"..projects[i].name.."", 10755)
+	    exec("./assemble_"..projects[i].name.."", "./assemble_"..projects[i].name.."")
+
+	    source_file = projects_dir..projects[i].working_dir..projects[i].src;
+	    source = openfile(source_file);
+	    source = string.gsub(source,"#define VERSION_STRING \"\"", "#define VERSION_STRING \""..os.date("%m-%d-%y_")..md5_hash(source).."\"");
+	    savefile(source_file, source);
+
+	    cmd = "cd "..projects_dir.."\n";
+	    cmd = cmd.."cd "..projects[i].working_dir.."\n";
 	    savefile("build_"..projects[i].name.."", cmd.."\n"..buildcmd(i))
 	    chmod("build_"..projects[i].name.."", 10755)
 	    echo(buildcmd(i).."\n\n");
-	    exec("./build_"..projects[i].name.."", "./build_"..projects[i].name.."")    
+	    exec("./build_"..projects[i].name.."", "./build_"..projects[i].name.."")
 	    --os.remove("./build_"..projects[i].name);
 	    echo("Done Building ".. projects[i].name .."! \n");
 	else

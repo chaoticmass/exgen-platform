@@ -308,13 +308,16 @@ int process_events(void) {
 		call_on_mouse_down(surface, 1);
 	    } else if (last_mouse_b & 1) {
 		call_on_mouse_up(last_mouse_surface_b1, 1);
+		printf("HARRO MOUSE CLICK %i\n", surface);
 		call_on_mouse_click(surface, 1);
+		
 		last_mouse_surface_b1 = -1;
 	    }
 	    if (mouse_b & 2) {
 		call_on_mouse_down(surface, 2);
 	    } else if (last_mouse_b & 2) {
 		call_on_mouse_up(last_mouse_surface_b2, 2);
+		
 		call_on_mouse_click(surface, 2);
 		last_mouse_surface_b2 = -1;	
 	    }	
@@ -805,8 +808,8 @@ int call_on_mouse_click(int index, int button) {
     int oy = 0;
     int screen_x = 0;
     int screen_y = 0;
-
     void * L = NULL;
+    printf("MOUSE CLICK: %i, %i\n", index, surfaces[index]->on_mouse_click);
     if (check_surface(index)) {
 	if (surfaces[index]->on_mouse_click != -1) {
 	    L = surfaces[index]->L;

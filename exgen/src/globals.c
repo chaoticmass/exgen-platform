@@ -1,4 +1,4 @@
-#define VERSION_STRING	"0.298A"
+#define VERSION_STRING ""
 #define ARCH_STRING	"linux_x86"
 
 #include "rote/rote.h"
@@ -23,6 +23,7 @@
 #include <signal.h>
 #include <setjmp.h>
 #include <sys/wait.h>
+#include <openssl/md5.h>
 
 char *self_name = NULL; // despite what the name may indicate, this contains
 			// the entire path and program name as returned by

@@ -30,6 +30,7 @@ int s_connect(int port, char * ip) { // PORT, IP
 int s_listen(int port, char * ip) { // PORT, IP
     int sockfd;
     struct sockaddr_in my_addr;
+    int reuse_option = 1;
     //char *ip = NULL;
     int ipi = 0;
     
@@ -40,6 +41,9 @@ int s_listen(int port, char * ip) { // PORT, IP
     }
     //sockfd = socket(PF_INET, SOCK_SEQPACKET, 0);
     sockfd = socket(PF_INET, SOCK_STREAM, 0);
+    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &reuse_option, sizeof(reuse_option))) {
+	printf("Set sock option Error: %d\n", errno);
+    }
     
     my_addr.sin_family = AF_INET;
     my_addr.sin_port = htons(port);
@@ -48,7 +52,9 @@ int s_listen(int port, char * ip) { // PORT, IP
     
     bind(sockfd, (struct sockaddr *)&my_addr, sizeof(my_addr));
     
-    listen(sockfd, 5);
+    if (listen(sockfd, 1)) {
+	printf("Listen Error: %d\n", errno);
+    }
     
     return sockfd;
 }

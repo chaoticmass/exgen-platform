@@ -1,0 +1,8 @@
+cd /root/projects/c/
+cd exgen/
+cp src/globals.c exgen.c
+cat src/sqlite.c >> exgen.c
+cat src/net.c >> exgen.c
+cat src/modules.c >> exgen.c
+cat src/lua.c >> exgen.c
+cat src/core.c >> exgen.c

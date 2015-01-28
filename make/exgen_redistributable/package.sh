@@ -28,7 +28,7 @@ if [ -d /mnt/exgen/exgen ]; then
     echo -n "Copying files to exgen.illution.net..."
     cp exgen_`exgen -v`_redistributable.tar.gz /mnt/exgen/exgen/redistributable
     cp exgen_`exgen -v`_redistributable.tar.gz /mnt/exgen/exgen/redistributable/exgen_redistributable
-    cp README /mnt/exgen/exgen/redistributable
+    cp README /mnt/exgen/exgen/redistributable/README
     echo "done."
 else 
     echo "Not copying files to exgen.illution.net because we are not connected."

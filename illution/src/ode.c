@@ -28,6 +28,8 @@ int l_create_worldspace(void * L) {
     ws->space = dHashSpaceCreate(0);
     ws->contactgroup = dJointGroupCreate(0);
     ws->lasttime = timer();
+    ws->on_collide = -1;
+    ws->L = L;
     
     //set sane defaults
     if (n >= 1) {
@@ -49,6 +51,13 @@ int l_destroy_worldspace(void * L) {
     dSpaceDestroy(ws->space);
     dWorldDestroy(ws->world);
     free(ws);
+    return 0;
+}
+
+int l_set_worldspace_on_collide(void * L) {
+    struct worldspace_type *ws = lua_touserdata(L, 1);
+    ws->L = L;
+    ws->on_collide = luaL_ref(L, LUA_REGISTRYINDEX);
     return 0;
 }
 
@@ -139,7 +148,7 @@ int l_create_body(void * L) {
 	dReal offset = 0;
 	dReal thickness = 1;
 	int wrap = 0;
-	b->heightfield_data_id = dGeomHeightfieldDataCreate();
+    	b->heightfield_data_id = dGeomHeightfieldDataCreate();
 	printf("Heightfield Data ID: %i\n", b->heightfield_data_id);
 	/dGeomHeightfieldDataBuildSingle (b->heightfield_data_id,
                                       height_data,
@@ -210,6 +219,16 @@ int l_body_get_mass(void * L) {
     return 1;
 }
 
+int l_body_get_id(void * L) {
+    struct body_type *b = lua_touserdata(L, 1);
+    char *body_id = NULL;
+    
+    //lua_pushlightuserdata(L, b->body);
+    asprintf(&body_id, "%p", b->body);
+    lua_pushstring(L, body_id);
+    return 1;
+}
+
 int l_body_get_position(void * L) {
     struct body_type *b = lua_touserdata(L, 1);
     
@@ -266,10 +285,10 @@ int l_body_get_rotation(void * L) {
     printf("Rotation: r6: %f, r7: %f, r8: %f \n", rotation[6], rotation[7], rotation[8]);*/
     //printf("Rotation: w: %f, x: %f, y: %f, z: %f\n", retval[0], retval[1], retval[2],  retval[3]);
     
-    lua_pushnumber(L, retval[1]);
-    lua_pushnumber(L, retval[0]);    
-    lua_pushnumber(L, retval[2]);    
+    lua_pushnumber(L, retval[2]);
+    lua_pushnumber(L, retval[1]);    
     lua_pushnumber(L, retval[3]);    
+    lua_pushnumber(L, retval[0]);    
     return 4;
 }
 
@@ -299,6 +318,10 @@ void oldnearCallback(struct worldspace_type *ws, dGeomID o1, dGeomID o2) {
 void nearCallback(struct worldspace_type *ws, dGeomID o1, dGeomID o2) {
     int i;
     int max_contacts = 3;
+    void * L = NULL;
+    char *body_id_1 = NULL;
+    char *body_id_2 = NULL;
+
     
     dBodyID b1 = dGeomGetBody(o1);
     dBodyID b2 = dGeomGetBody(o2);
@@ -322,13 +345,26 @@ void nearCallback(struct worldspace_type *ws, dGeomID o1, dGeomID o2) {
 	    dJointID c = dJointCreateContact(ws->world, ws->contactgroup, contact+i);
 	    dJointAttach(c, b1, b2);
 	}
+
+	if (ws->on_collide != -1) {
+	    L = ws->L;
+	    lua_pushnumber(L, ws->on_collide);
+	    lua_gettable(L, LUA_REGISTRYINDEX);
+
+	    //lua_pushlightuserdata(L, b->body);
+	    asprintf(&body_id_1, "%p", b1);
+	    asprintf(&body_id_2, "%p", b2);
+	    lua_pushstring(L, body_id_1);
+	    lua_pushstring(L, body_id_2);
+	    safe_call(L, 2);
+	}
     }
 }
 int l_simulate(void * L) {
     int n = lua_gettop(L);
     struct worldspace_type *ws = lua_touserdata(L, 1);
     dSpaceCollide(ws->space, ws, &nearCallback);
-    if (n == 2) {
+    if (n >= 2) {
 	dWorldQuickStep(ws->world, lua_tonumber(L, 2));
 	//dWorldStep(ws->world, lua_tonumber(L, 2));
     } else {

@@ -229,6 +229,7 @@ function surface:new(index)
 		set_surface_on_mouse_up(daters.surface, value);
 
 	    elseif key == "on_mouse_click" then
+		echo(daters.surface..": MOUSE CLICKA REGISTER\n");
 		daters.on_mouse_click = value;
 		set_surface_on_mouse_click(daters.surface, value);
 	    elseif key == "always_on_top" then
@@ -342,6 +343,10 @@ function surface:new(index)
 	surface_print(daters.surface, x, y, text);
     end
 
+    daters.put_pixel = function (x1, y1)
+	surface_put_pixel(daters.surface, x1, y1);
+    end
+
     daters.get_pixel = function (x1, y1)
 	return surface_get_pixel(daters.surface, x1, y1);
     end
@@ -366,15 +371,21 @@ function surface:new(index)
 	set_focus(daters.surface);
     end
     
-    --[[
     daters.blit = function (dest, source_x, source_y, dest_x, dest_y, width, height)
 	if (type(source_x) == "nil") then
-	    surface_blit(daters.surface, dest);
+	    surface_blit(daters.surface, dest.surface);
 	else 
-	    surface_blit(daters.surface, dest, source_x, source_y, dest_x, dest_y, width, height)
+	    surface_blit(daters.surface, dest.surface, source_x, source_y, dest_x, dest_y, width, height)
 	end
     end
-    ]]
+    daters.transparent_blit = function (dest, dest_x, dest_y)
+	if (type(dest_x) == "nil") then
+	    surface_transparent_blit(daters.surface, dest.surface);
+	else 
+	    surface_transparent_blit(daters.surface, dest.surface, dest_x, dest_y)
+	end
+    end
+
     daters.set_dirty = function ()
 	set_surface_dirty(daters.surface);
     end

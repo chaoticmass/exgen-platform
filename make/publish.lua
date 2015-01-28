@@ -9,7 +9,7 @@ build
 ]];
 savefile("spublish", script);
 chmod("spublish", 10755);
-exec("./spublish", "./spublish");
+--exec("./spublish", "./spublish");
 os.remove("./spublish");
 
 
@@ -82,12 +82,12 @@ end
 
 savefile(pubdir.."modules/manifest", module_list);
 
-script = [[
-cd exgen_redistributable
-./package.sh
-cd ../
-]];
-savefile("spublish", script);
-chmod("spublish", 10755);
-exec("./spublish", "./spublish");
-os.remove("./spublish");
+--script = [[
+--cd exgen_redistributable
+--./package.sh
+--cd ../
+--]];
+--savefile("spublish", script);
+--chmod("spublish", 10755);
+--exec("./spublish", "./spublish");
+--os.remove("./spublish");

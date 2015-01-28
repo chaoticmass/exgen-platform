@@ -1,11 +1,6 @@
 cd /root/projects/c/
 cd exgen/
-cp src/globals.c exgen.c
-cat src/net.c >> exgen.c
-cat src/modules.c >> exgen.c
-cat src/lua.c >> exgen.c
-cat src/core.c >> exgen.c
 
 #!/bin/bash
-gcc -w -rdynamic -g -o obj/exgen.o -c exgen.c -I/usr/include/lua50 -Irote/  -O3
-gcc -s -w -rdynamic -g -o bin/exgen obj/exgen.o -ldl -pthread /usr/lib/libsqlite3.a /usr/lib/liblua50.a /usr/lib/liblualib50.a -I/usr/include/lua50 lib/librote.a /usr/lib/libutil.a /usr/lib/libm.a -O3
+gcc -w -rdynamic -g -o obj/exgen.o -c exgen.c -I/usr/include/lua50 -Irote/  -O3 -g
+gcc -s -w -rdynamic -g -o bin/exgen obj/exgen.o -ldl -pthread /usr/lib/i386-linux-gnu/libsqlite3.a /usr/lib/liblua50.a /usr/lib/liblualib50.a -I/usr/include/lua50 lib/librote.a /usr/lib/i386-linux-gnu/libutil.a /usr/lib/i386-linux-gnu/libm.a /usr/lib/i386-linux-gnu/libssl.a -lssl -lcrypto -O3 -g

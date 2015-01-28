@@ -1176,6 +1176,31 @@ int l_surface_blit(void * L) {
     return 0;    
 }
 
+int l_surface_transparent_blit(void * L) {
+    int src = lua_tonumber(L, 1);
+    int dest = lua_tonumber(L, 2);
+    int x1 = 0;
+    int y1 = 0;
+
+    //--pthread_mutex_lock(&surface_mutex);
+    if (check_surface(src)) {
+	if (check_surface(dest)) {
+	    if (lua_gettop(L) > 2) {
+		x1 = lua_tonumber(L, 3);
+		y1 = lua_tonumber(L, 4);	
+	    } else {
+		x1 = 0;
+		y1 = 0;
+	    }	
+	    //blit(surfaces[src]->bmap, surfaces[dest]->bmap, x1, y1, x2, y2, width, height);
+	    draw_sprite(surfaces[dest]->bmap, surfaces[src]->bmap, x1, y1);
+	}
+    }
+    //--pthread_mutex_unlock(&surface_mutex);
+    return 0;    
+}
+
+
 int l_surface_stretch_blit(void * L) {
     int src = lua_tonumber(L, 1);
     int dest = lua_tonumber(L, 2);
@@ -1214,42 +1239,6 @@ int l_surface_stretch_blit(void * L) {
 
 	    }	
 	    stretch_blit(surfaces[src]->bmap, surfaces[dest]->bmap, source_x, source_y, source_width, source_height, dest_x, dest_y, dest_width, dest_height);
-	}
-    }
-    //--pthread_mutex_unlock(&surface_mutex);
-    return 0;    
-}
-
-
-int l_surface_transparent_blit(void * L) {
-    int src = lua_tonumber(L, 1);
-    int dest = lua_tonumber(L, 2);
-    int x1 = 0;
-    int y1 = 0;
-    int x2 = 0;
-    int y2 = 0;
-    int width = 0;
-    int height = 0;
-
-    //--pthread_mutex_lock(&surface_mutex);
-    if (check_surface(src)) {
-	if (check_surface(dest)) {
-	    if (lua_gettop(L) > 2) {
-		x1 = lua_tonumber(L, 3);
-		y1 = lua_tonumber(L, 4);	
-		/*x2 = lua_tonumber(L, 5);	
-		y2 = lua_tonumber(L, 6);	
-		width = lua_tonumber(L, 7);	
-    		height = lua_tonumber(L, 8);	*/
-	    } else {
-		x1 = 0;
-		y1 = 0;
-		x2 = 0;
-		y2 = 0;
-		width = surfaces[src]->bmap->w;
-		height = surfaces[src]->bmap->h;
-	    }	
-	    draw_sprite(surfaces[dest]->bmap, surfaces[src]->bmap, x1, y1);
 	}
     }
     //--pthread_mutex_unlock(&surface_mutex);
@@ -1554,12 +1543,29 @@ int l_set_focus(void * L) {
 	surfaces[index]->has_focus = 1;
 	call_on_got_focus(index);
 	if (debug_mode) {
-	    printf("Focus: %i\n", index);
+	    printf("!!!!!!!!!!!!! SET Focus: %i\n", index);
 	}
     }
     ////--pthread_mutex_unlock(&surface_mutex);
     return 0;            
 }
+
+
+
+
+int l_surface_put_pixel(void * L) {
+    int index = lua_tonumber(L, 1);
+    int x1 = lua_tonumber(L, 2);
+    int y1 = lua_tonumber(L, 3);    
+    //--pthread_mutex_lock(&surface_mutex);
+    if (check_surface(index)) {
+	putpixel(surfaces[index]->bmap, x1, y1, surfaces[index]->forecolor);
+	return 0;
+    }
+    //--pthread_mutex_unlock(&surface_mutex);
+    return 0;            
+}
+
 
 int l_surface_get_pixel(void * L) {
     int index = lua_tonumber(L, 1);
@@ -1814,8 +1820,8 @@ int l_get_render_mode(void * L) {
 
 int l_initialize_video(void * L) {
     int n = lua_gettop(L);
-    int x = 640;
-    int y = 480;
+    int x = 0;
+    int y = 0;
     int video_mode = GFX_AUTODETECT_WINDOWED;
     if (debug_mode) {
 	printf("Graphics modes supported:\n");
@@ -2494,12 +2500,26 @@ int l_create_matrix(void * L) {
 int l_set_matrix_rotation(void * L) {
     struct trans_type * matrix = lua_touserdata(L, 1);
     
-    //get_rotation_quat(&matrix->rotation, lua_tonumber(L, 2), lua_tonumber(L, 3),lua_tonumber(L, 4) );    
+    get_rotation_quat(&matrix->rotation, lua_tonumber(L, 2), lua_tonumber(L, 3),lua_tonumber(L, 4) );    
+    /*matrix->rotation.w = lua_tonumber(L, 2);
+    matrix->rotation.x = lua_tonumber(L, 3);
+    matrix->rotation.y = lua_tonumber(L, 4);
+    matrix->rotation.z = lua_tonumber(L, 5);*/
+
+    matrix->r_x = lua_tonumber(L, 2);
+    matrix->r_y = lua_tonumber(L, 3);
+    matrix->r_z = lua_tonumber(L, 4);
+
+    return 0;
+}
+
+int l_set_quaternion_rotation(void * L) {
+    struct trans_type * matrix = lua_touserdata(L, 1);
+    
     matrix->rotation.w = lua_tonumber(L, 2);
     matrix->rotation.x = lua_tonumber(L, 3);
     matrix->rotation.y = lua_tonumber(L, 4);
     matrix->rotation.z = lua_tonumber(L, 5);
-    return 0;
 }
 
 int l_update_matrix(void * L) {
@@ -2515,14 +2535,14 @@ int l_update_matrix(void * L) {
     }
     
     get_transformation_matrix_f(&matrix->matrix, matrix->scale,
-	matrix->r_x, matrix->r_y, matrix->r_z,
-//	0, 0, 0,
+//	matrix->r_x, matrix->r_y, matrix->r_z,
+	0, 0, 0,
 	matrix->x, matrix->y, matrix->z);
 	
     //get_rotation_quat(&matrix->rotation, matrix->r_x, matrix->r_y, matrix->r_z);
     
 
-    if (n == 3) {
+/*    if (n == 3) {
 	int i = 0;
 	int f = 0;
 	int e = 0;
@@ -2553,6 +2573,7 @@ int l_update_matrix(void * L) {
 	    }
 	}
     }
+    */
     return 0;
 }
 
@@ -2652,6 +2673,102 @@ int l_get_matrix_scale(void * L) {
     return 1;
 }
 
+int arc_callback(void * L, int x, int y, int c) {
+    lua_pushnumber(L, c);
+    lua_gettable(L, LUA_REGISTRYINDEX);
+
+    lua_pushnumber(L, x);
+    lua_pushnumber(L, y);
+
+    safe_call(L, 2);
+    //printf("%i, %i \n", x, y);
+}
+
+int l_do_arc(void * L) {
+    void * bmp = NULL;
+    int x = 0;
+    int y = 0;
+    int ang1 = 0;
+    int ang2 = 0;
+    int r = 0;
+    int d = 0;
+    int c = 0;
+
+    x = lua_tonumber(L, 1);
+    y = lua_tonumber(L, 2);
+    ang1 = lua_tonumber(L, 3);
+    ang2 = lua_tonumber(L, 4);
+    r = lua_tonumber(L, 5);
+    //c = lua_tonumber(L, 6);
+    c = luaL_ref(L, LUA_REGISTRYINDEX);
+
+    // bmp, x, y, ang1, ang2, r, col	or, callback
+    do_arc(L, x, y, itofix(ang1), itofix(ang2), r, c, arc_callback);
+    return 0;
+}
+
+int line_callback(void * L, int x, int y, int c) {
+    lua_pushnumber(L, c);
+    lua_gettable(L, LUA_REGISTRYINDEX);
+
+    lua_pushnumber(L, x);
+    lua_pushnumber(L, y);
+
+    safe_call(L, 2);
+    //printf("%i, %i \n", x, y);
+}
+
+int l_do_line(void * L) {
+    void * bmp = NULL;
+    int x1 = 0;
+    int y1 = 0;
+    int x2 = 0;
+    int y2 = 0;
+
+    int c = 0;
+
+    x1 = lua_tonumber(L, 1);
+    y1 = lua_tonumber(L, 2);
+    x2 = lua_tonumber(L, 3);
+    y2 = lua_tonumber(L, 4);
+
+    c = luaL_ref(L, LUA_REGISTRYINDEX);
+
+    // bmp, x, y, ang1, ang2, r, col	or, callback
+    do_line(L, x1, y1, x2, y2, c, line_callback);
+    return 0;
+}
+
+int circle_callback(void * L, int x, int y, int c) {
+    lua_pushnumber(L, c);
+    lua_gettable(L, LUA_REGISTRYINDEX);
+
+    lua_pushnumber(L, x);
+    lua_pushnumber(L, y);
+
+    safe_call(L, 2);
+    //printf("%i, %i \n", x, y);
+}
+
+int l_do_circle(void * L) {
+    void * bmp = NULL;
+    int x = 0;
+    int y = 0;
+    int r = 0;
+    int c = 0;
+
+    x = lua_tonumber(L, 1);
+    y = lua_tonumber(L, 2);
+    r = lua_tonumber(L, 3);
+
+    c = luaL_ref(L, LUA_REGISTRYINDEX);
+
+    // bmp, x, y, ang1, ang2, r, col	or, callback
+    do_circle(L, x, y, r, c, circle_callback);
+    return 0;
+}
+
+
 int l_set_debug_mode(void * L) {
     debug_mode = lua_tonumber(L, 1);
     return 0;
@@ -2681,12 +2798,13 @@ void illution_lua_register_call(void * L) {
     // libode
     lua_register(L, "create_worldspace", l_create_worldspace);
     lua_register(L, "destroy_worldspace", l_destroy_worldspace);
+    lua_register(L, "set_worldspace_on_collide", l_set_worldspace_on_collide);
 //    lua_register(L, "", );
     lua_register(L, "create_plane", l_create_plane);
     lua_register(L, "plane_set_geom", l_plane_set_geom);
     lua_register(L, "create_body", l_create_body);
     lua_register(L, "destroy_body", l_destroy_body);
-
+    lua_register(L, "body_get_id", l_body_get_id);
 
     lua_register(L, "body_set_mass", l_body_set_mass);
     lua_register(L, "body_get_mass", l_body_get_mass);
@@ -2751,6 +2869,7 @@ void illution_lua_register_call(void * L) {
     lua_register(L, "create_matrix", l_create_matrix);
     lua_register(L, "update_matrix", l_update_matrix);
     lua_register(L, "set_matrix_rotation", l_set_matrix_rotation);
+    lua_register(L, "set_quaternion_rotation", l_set_quaternion_rotation);
     lua_register(L, "set_matrix_x", l_set_matrix_x);
     lua_register(L, "get_matrix_x", l_get_matrix_x);
     lua_register(L, "set_matrix_y", l_set_matrix_y);
@@ -2775,7 +2894,8 @@ void illution_lua_register_call(void * L) {
     lua_register(L, "surface_clear", l_surface_clear);
     lua_register(L, "surface_blit", l_surface_blit);
     lua_register(L, "surface_stretch_blit", l_surface_stretch_blit);    
-    lua_register(L, "surface_transparent_blit", l_surface_transparent_blit);    
+    lua_register(L, "surface_transparent_blit", l_surface_transparent_blit);
+    lua_register(L, "surface_put_pixel", l_surface_put_pixel);
     lua_register(L, "surface_get_pixel", l_surface_get_pixel);
     lua_register(L, "get_rgb", l_get_rgb);    
     lua_register(L, "surface_thick_line", l_surface_thick_line);
@@ -2868,6 +2988,7 @@ void illution_lua_register_call(void * L) {
     lua_register(L, "makecol", l_makecol);
     lua_register(L, "render_loop", l_render_loop);
     lua_register(L, "initialize_video", l_initialize_video);
+    lua_register(L, "initialize", l_initialize_video);
     lua_register(L, "set_render_mode", l_set_render_mode);
     lua_register(L, "get_render_mode", l_get_render_mode);
     
@@ -2891,7 +3012,10 @@ void illution_lua_register_call(void * L) {
     lua_register(L, "get_thread_count", l_get_thread_count);
     lua_register(L, "get_thread_priority", l_get_thread_priority);
     lua_register(L, "set_thread_priority", l_set_thread_priority);
-    
+
+    lua_register(L, "do_circle", l_do_circle);
+    lua_register(L, "do_line", l_do_line);
+    lua_register(L, "do_arc", l_do_arc);
 
     lua_sethook(L, watchdog, LUA_MASKCOUNT, 1000);
     //lua_runscript_reuse(L, "surface.lua");
